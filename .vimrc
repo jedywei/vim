@@ -193,7 +193,7 @@ set foldenable
 set foldmethod=syntax
 set foldnestmax=3
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-nmap <Space> za
+nmap <Space> zA
 
 syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 hi def link cCustomFunc Function
@@ -219,26 +219,24 @@ imap <C-A-Down> <Esc>:cnext<CR>
 imap <C-A-Up> <Esc>:cprev<CR>
 
 " Cursor Movement
-inoremap <Left> <Left><Esc>
-inoremap <Right> <Right><Esc>
-inoremap <Down> <Esc>gj
-inoremap <Up> <Esc>gk
-nnoremap <Down> gj
-nnoremap <Up> gk
+noremap! <Left> <C-[><Left>
+noremap! <Right> <C-[><Esc>
+noremap! <Down> <C-[>gj
+noremap! <Up> <C-[>gk
+noremap <Down> gj
+noremap <Up> gk
 
 "
-inoremap <A-Left> <Esc>B
-inoremap <A-Right> <Esc>W
-nnoremap <A-Left> B
-nnoremap <A-Right> W
-vnoremap <A-Left> B
-vnoremap <A-Right> W
+noremap! <A-Left> <C-[>B
+noremap! <A-Right> <C-[>W
+noremap <A-Left> B
+noremap <A-Right> W
 
 " move between last editor
-inoremap <C-Up> <Esc>g;
-inoremap <C-Down> <Esc>g,
-nnoremap <C-Up> g;
-nnoremap <C-Down> g,
+noremap! <C-Up> <Esc>g;
+noremap! <C-Down> <Esc>g,
+noremap <C-Up> g;
+noremap <C-Down> g,
 
 inoremap <silent><C-Right> <Esc>:YcmCompleter GoToDefinitionElseDeclaration<CR>zo
 inoremap <C-Left> <Esc><C-o>
