@@ -112,7 +112,12 @@ let g:ycm_error_symbol='>>'
 let g:ycm_warning_symbol='>*'
 "let g:ycm_enable_diagnostic_signs=0
 "let g:ycm_enable_diagnostic_highlighting=0
+let g:ycm_key_list_previous_completion = ['<S-TAB>']
+let g:ycm_key_list_select_completion = ['<TAB>']
+let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
 "inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr><Up> pumvisible() ? "\<C-P>" : "\<Esc>gk"
+inoremap <expr><Down> pumvisible() ? "\<C-N>" : "\<Esc>gj"
 set completeopt=longest,menu
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap gf :YcmCompleter GoToDefinition<CR>
@@ -206,41 +211,41 @@ hi def link cCustomFunc Function
 nnoremap <C-L> :nohl<CR><C-L>
 
 " Buffer <- ->
-nmap <C-A-Right> :bnext<CR>
-nmap <C-A-Left> :bprev<CR>
-imap <C-A-Right> <ESC>:bnext<CR>
-imap <C-A-Left> <Esc>:bprev<CR>
+nnoremap <C-A-Right> :bnext<CR>
+nnoremap <C-A-Left> :bprev<CR>
+inoremap <C-A-Right> <ESC>:bnext<CR>
+inoremap <C-A-Left> <Esc>:bprev<CR>
 
 
 " Quickfix up / down 
-nmap <C-A-Down> :cnext<CR>
-nmap <C-A-Up> :cprev<CR>
-imap <C-A-Down> <Esc>:cnext<CR>
-imap <C-A-Up> <Esc>:cprev<CR>
+nnoremap <C-A-Down> :cnext<CR>
+nnoremap <C-A-Up> :cprev<CR>
+inoremap <C-A-Down> <Esc>:cnext<CR>
+inoremap <C-A-Up> <Esc>:cprev<CR>
 
 " Cursor Movement
-inoremap <Left> <C-[><Left>
-inoremap <Right> <C-[><Esc>
-inoremap <Down> <C-[>gj
-inoremap <Up> <C-[>gk
-noremap <Down> gj
-noremap <Up> gk
+inoremap <Left> <Esc><Left>
+inoremap <Right> <Esc><Right>
+"inoremap <Down> <Esc>gj
+"inoremap <Up> <Esc>gk
+nnoremap <Down> gj
+nnoremap <Up> gk
 
 "
 inoremap <A-Left> <C-[>B
 inoremap <A-Right> <C-[>W
-noremap <A-Left> B
-noremap <A-Right> W
+nnoremap <A-Left> B
+nnoremap <A-Right> W
 
 " move between last editor
-noremap! <C-Up> <Esc>g;
-noremap! <C-Down> <Esc>g,
-noremap <C-Up> g;
-noremap <C-Down> g,
+inoremap <C-Up> <Esc>g;
+inoremap <C-Down> <Esc>g,
+nnoremap <C-Up> g;
+nnoremap <C-Down> g,
 
-inoremap <silent><C-Right> <Esc>:YcmCompleter GoToDefinitionElseDeclaration<CR>zo
+inoremap <silent><C-Right> <Esc>:YcmCompleter GoToDefinitionElseDeclaration<CR>zO
 inoremap <C-Left> <Esc><C-o>
-nnoremap <silent><C-Right> :YcmCompleter GoToDefinitionElseDeclaration<CR>zo
+nnoremap <silent><C-Right> :YcmCompleter GoToDefinitionElseDeclaration<CR>zO
 nnoremap <C-Left> <C-o>
 " 
 inoremap <A-Up> <Esc>[[
@@ -252,12 +257,13 @@ nnoremap <silent><C-s> :w<cr>
 inoremap <silent><C-s> <C-o>:w<cr>
 noremap <silent><C-a> :w<CR>:make<CR>
 inoremap <silent><C-a> :w<CR>:make<CR>
-noremap <silent><C-M-N> :w<CR>:make<CR>
-inoremap <silent><C-M-N> :w<CR>:make<CR>
 
 "delete
-map!    <A-.>   <Del>
-map     <A-.>   <Del>
+"inoremap    <A-.>   <Del>
+"nnoremap     <M-.>   <Del>
+
+"nnoremap    <A-/>   dw
+"inoremap    <A-/>   <Esc>dwi
 
 "insert a new line on normal mode
 "nmap <CR> o<Esc>
