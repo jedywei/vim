@@ -219,16 +219,16 @@ imap <C-A-Down> <Esc>:cnext<CR>
 imap <C-A-Up> <Esc>:cprev<CR>
 
 " Cursor Movement
-noremap! <Left> <C-[><Left>
-noremap! <Right> <C-[><Esc>
-noremap! <Down> <C-[>gj
-noremap! <Up> <C-[>gk
+inoremap <Left> <C-[><Left>
+inoremap <Right> <C-[><Esc>
+inoremap <Down> <C-[>gj
+inoremap <Up> <C-[>gk
 noremap <Down> gj
 noremap <Up> gk
 
 "
-noremap! <A-Left> <C-[>B
-noremap! <A-Right> <C-[>W
+inoremap <A-Left> <C-[>B
+inoremap <A-Right> <C-[>W
 noremap <A-Left> B
 noremap <A-Right> W
 
