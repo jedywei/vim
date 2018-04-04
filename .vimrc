@@ -114,8 +114,8 @@ let g:ycm_warning_symbol='>*'
 "let g:ycm_enable_diagnostic_highlighting=0
 let g:ycm_key_list_previous_completion = ['<S-TAB>']
 let g:ycm_key_list_select_completion = ['<TAB>']
-let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
-"inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+let g:ycm_key_list_stop_completion = ['<C-y>']
+inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr><Up> pumvisible() ? "\<C-P>" : "\<Esc>gk"
 inoremap <expr><Down> pumvisible() ? "\<C-N>" : "\<Esc>gj"
 set completeopt=longest,menu
@@ -232,8 +232,8 @@ nnoremap <Down> gj
 nnoremap <Up> gk
 
 "
-inoremap <A-Left> <C-[>B
-inoremap <A-Right> <C-[>W
+inoremap <A-Left> <Esc>B
+inoremap <A-Right> <Esc>W
 nnoremap <A-Left> B
 nnoremap <A-Right> W
 
@@ -256,7 +256,8 @@ nnoremap <A-Down> ]]
 nnoremap <silent><C-s> :w<cr>
 inoremap <silent><C-s> <C-o>:w<cr>
 noremap <silent><C-a> :w<CR>:make<CR>
-inoremap <silent><C-a> :w<CR>:make<CR>
+inoremap <silent><C-a> <Esc>:w<CR>:make<CR>
+
 
 "delete
 "inoremap    <A-.>   <Del>
