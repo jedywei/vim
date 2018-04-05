@@ -39,11 +39,11 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlp.vim'
-"Plugin 'ervandew/supertab'
+Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
-"Plugin 'SirVer/ultisnips'
-"Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'kshenoy/vim-signature'
 Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/a.vim'
@@ -125,15 +125,16 @@ nnoremap gl :YcmCompleter GotoDeclaration<CR>
 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-"let g:ycm_key_list_select_completion=['<C-n>','<Down>']
-"let g:ycm_key_list_previous_completion=['<C-p>','<Up>']
-"let g:SuperTabDefaultCompletionType='<C-n>'
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:ycm_key_list_select_completion=['<C-n>']
+let g:ycm_key_list_previous_completion=['<C-p>']
+let g:SuperTabDefaultCompletionType='<C-n>'
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 " If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips']
 
 
 " vim-signature remove SignColumn highlight color  
@@ -243,9 +244,9 @@ inoremap <C-Down> <Esc>g,
 nnoremap <C-Up> g;
 nnoremap <C-Down> g,
 
-inoremap <silent><C-Right> <Esc>:YcmCompleter GoToDefinitionElseDeclaration<CR>zO
+inoremap <silent><C-Right> <Esc>:YcmCompleter GoToDefinitionElseDeclaration<CR>
 inoremap <C-Left> <Esc><C-o>
-nnoremap <silent><C-Right> :YcmCompleter GoToDefinitionElseDeclaration<CR>zO
+nnoremap <silent><C-Right> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <C-Left> <C-o>
 " 
 inoremap <A-Up> <Esc>[[
@@ -253,11 +254,13 @@ inoremap <A-Down> <Esc>]]
 nnoremap <A-Up> [[
 nnoremap <A-Down> ]]
 "save
-nnoremap <silent><C-s> :w<cr>
-inoremap <silent><C-s> <C-o>:w<cr>
+nnoremap <silent><C-s> :w<CR>
+inoremap <silent><C-s> <C-o>:w<CR>
 noremap <silent><C-a> :w<CR>:make<CR>
 inoremap <silent><C-a> <Esc>:w<CR>:make<CR>
 
+" quit
+nnoremap <silent>zz :quit<CR>
 
 "delete
 "inoremap    <A-.>   <Del>
