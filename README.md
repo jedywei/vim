@@ -7,7 +7,6 @@ Command to manage remote repository
 https://git-scm.com/book/zh-tw/v1/Git-基礎-與遠端協同工作
 
 1. command to clone .vim to local
-
 $ git clone <.../vim.git> .vim
 
 2. command to show remote
