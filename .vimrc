@@ -47,6 +47,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'kshenoy/vim-signature'
 Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/a.vim'
+Plugin 'vim-scripts/restore_view.vim'
 
 
 " vundle#end() can active all Plugin
@@ -203,6 +204,12 @@ nmap <Space> zA
 
 syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 hi def link cCustomFunc Function
+
+"----------------------------------------------------------------------
+" Resotre-view option {{{ 1
+
+set viewoptions=cursor,folds,slash,unix
+"let g:skipview_files=['\.vim']
 
 "----------------------------------------------------------------------
 " Mappings {{{ 1
