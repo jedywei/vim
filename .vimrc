@@ -116,9 +116,11 @@ let g:ycm_warning_symbol='>*'
 let g:ycm_key_list_previous_completion = ['<S-TAB>']
 let g:ycm_key_list_select_completion = ['<TAB>']
 let g:ycm_key_list_stop_completion = ['<C-y>']
-inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
 inoremap <expr><Up> pumvisible() ? "\<C-P>" : "\<Esc>gk"
 inoremap <expr><Down> pumvisible() ? "\<C-N>" : "\<Esc>gj"
+inoremap <expr><Left> pumvisible() ? "\<C-E>" : "\<Esc>\<Left>"
+inoremap <expr><Right> pumvisible() ? "\<C-E>" : "\<Esc>\<Right>"
 set completeopt=longest,menu
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap gf :YcmCompleter GoToDefinition<CR>
@@ -232,8 +234,8 @@ inoremap <C-A-Down> <Esc>:cnext<CR>
 inoremap <C-A-Up> <Esc>:cprev<CR>
 
 " Cursor Movement
-inoremap <Left> <Esc><Left>
-inoremap <Right> <Esc><Right>
+"inoremap <Left> <Esc><Left>
+"inoremap <Right> <Esc><Right>
 "inoremap <Down> <Esc>gj
 "inoremap <Up> <Esc>gk
 nnoremap <Down> gj
