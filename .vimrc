@@ -102,6 +102,7 @@ let g:ctrlp_by_filename=1
 "---------------------------------------------------------------------------------------
 " YouCompleteMe
 "
+" :h ins-completion-menu
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_complete_in_strings=1
 let g:ycm_complete_in_comments=1
@@ -116,10 +117,10 @@ let g:ycm_warning_symbol='>*'
 let g:ycm_key_list_previous_completion = ['<S-TAB>']
 let g:ycm_key_list_select_completion = ['<TAB>']
 let g:ycm_key_list_stop_completion = ['<C-y>']
-inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
-inoremap <expr><Up> pumvisible() ? "\<C-P>" : "\<Esc>gk"
-inoremap <expr><Down> pumvisible() ? "\<C-N>" : "\<Esc>gj"
-inoremap <expr><Left> pumvisible() ? "\<C-E>" : "\<Esc>\<Left>"
+"inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
+inoremap <expr><Up> pumvisible() ? "\<Up>" : "\<Esc>gk"
+inoremap <expr><Down> pumvisible() ? "\<Down>" : "\<Esc>gj"
+inoremap <expr><Left> pumvisible() ? "\<C-y>" : "\<Esc>\<Left>"
 inoremap <expr><Right> pumvisible() ? "\<C-E>" : "\<Esc>\<Right>"
 set completeopt=longest,menu
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
