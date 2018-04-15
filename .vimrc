@@ -39,7 +39,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlp.vim'
-Plugin 'ervandew/supertab'
+"Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
@@ -114,14 +114,16 @@ let g:ycm_error_symbol='>>'
 let g:ycm_warning_symbol='>*'
 "let g:ycm_enable_diagnostic_signs=0
 "let g:ycm_enable_diagnostic_highlighting=0
-let g:ycm_key_list_previous_completion = ['<S-TAB>']
-let g:ycm_key_list_select_completion = ['<TAB>']
+"let g:ycm_key_list_previous_completion = ['<S-TAB>']
+"let g:ycm_key_list_select_completion = ['<TAB>']
 let g:ycm_key_list_stop_completion = ['<C-y>']
+let g:ycm_key_list_previous_completion=['<C-p>']
+let g:ycm_key_list_select_completion=['<C-n>']
 "inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
 inoremap <expr><Up> pumvisible() ? "\<Up>" : "\<Esc>gk"
 inoremap <expr><Down> pumvisible() ? "\<Down>" : "\<Esc>gj"
-inoremap <expr><Left> pumvisible() ? "\<C-y>" : "\<Esc>\<Left>"
-inoremap <expr><Right> pumvisible() ? "\<C-E>" : "\<Esc>\<Right>"
+inoremap <expr><Left> pumvisible() ? "\<C-E>" : "\<Esc>\<Left>"
+inoremap <expr><Right> pumvisible() ? "\<C-y>" : "\<Esc>\<Right>"
 set completeopt=longest,menu
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap gf :YcmCompleter GoToDefinition<CR>
@@ -129,12 +131,10 @@ nnoremap gl :YcmCompleter GotoDeclaration<CR>
 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:ycm_key_list_select_completion=['<C-n>']
-let g:ycm_key_list_previous_completion=['<C-p>']
-let g:SuperTabDefaultCompletionType='<C-n>'
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+"let g:SuperTabDefaultCompletionType='<C-n>'
+let g:UltiSnipsExpandTrigger='<C-j>'
+"let g:UltiSnipsJumpForwardTrigger="<Tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -264,10 +264,10 @@ inoremap <A-Down> <Esc>]]
 nnoremap <A-Up> [[
 nnoremap <A-Down> ]]
 "save
-nnoremap <silent><C-s> :w<CR>
-inoremap <silent><C-s> <C-o>:w<CR>
-noremap <silent><C-a> :w<CR>:make<CR>
-inoremap <silent><C-a> <Esc>:w<CR>:make<CR>
+nnoremap <silent><C-s> :wa<CR>
+inoremap <silent><C-s> <C-o>:wa<CR>
+noremap <silent><C-a> :wa<CR>:make<CR>
+inoremap <silent><C-a> <Esc>:wa<CR>:make<CR>
 
 " quit
 nnoremap <silent>zz :quit<CR>
