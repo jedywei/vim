@@ -117,12 +117,12 @@ let g:ycm_warning_symbol='>*'
 "let g:ycm_key_list_previous_completion = ['<S-TAB>']
 "let g:ycm_key_list_select_completion = ['<TAB>']
 let g:ycm_key_list_stop_completion = ['<C-y>']
-let g:ycm_key_list_previous_completion=['<C-p>']
-let g:ycm_key_list_select_completion=['<C-n>']
+let g:ycm_key_list_previous_completion=['<C-p>', '<S-TAB>']
+let g:ycm_key_list_select_completion=['<C-n>', '<TAB>']
 "inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
 inoremap <expr><Up> pumvisible() ? "\<Up>" : "\<Esc>gk"
 inoremap <expr><Down> pumvisible() ? "\<Down>" : "\<Esc>gj"
-inoremap <expr><Left> pumvisible() ? "\<Esc>a" : "\<Esc>\<Left>"
+inoremap <expr><Left> pumvisible() ? "\<C-e>\<Esc>a" : "\<Esc>\<Left>"
 inoremap <expr><Right> pumvisible() ? "\<C-y>" : "\<Esc>\<Right>"
 set completeopt=longest,menu
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
