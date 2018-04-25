@@ -122,7 +122,7 @@ let g:ycm_key_list_select_completion=['<C-n>']
 "inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
 inoremap <expr><Up> pumvisible() ? "\<Up>" : "\<Esc>gk"
 inoremap <expr><Down> pumvisible() ? "\<Down>" : "\<Esc>gj"
-inoremap <expr><Left> pumvisible() ? "\<C-E>" : "\<Esc>\<Left>"
+inoremap <expr><Left> pumvisible() ? "\<Esc>a" : "\<Esc>\<Left>"
 inoremap <expr><Right> pumvisible() ? "\<C-y>" : "\<Esc>\<Right>"
 set completeopt=longest,menu
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
