@@ -240,6 +240,14 @@ inoremap <C-A-Up> <Esc>:cprev<CR>
 "inoremap <Right> <Esc><Right>
 "inoremap <Down> <Esc>gj
 "inoremap <Up> <Esc>gk
+inoremap <S-Left> <Left>
+inoremap <S-Right> <Right>
+inoremap <S-Up> <Up>
+inoremap <S-Down> <Down>
+noremap <S-Left> <Left>
+noremap <S-Right> <Right>
+noremap <S-Up> <Up>
+noremap <S-Down> <Down>
 nnoremap <Down> gj
 nnoremap <Up> gk
 
