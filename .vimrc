@@ -48,7 +48,8 @@ Plugin 'kshenoy/vim-signature'
 Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'vim-scripts/restore_view.vim'
-
+" vader.vim is alt-key mapping in terminal 
+"Plugin 'junegunn/vader.vim'
 
 " vundle#end() can active all Plugin
 call vundle#end()
@@ -239,6 +240,14 @@ inoremap <C-A-Up> <Esc>:cprev<CR>
 "inoremap <Right> <Esc><Right>
 "inoremap <Down> <Esc>gj
 "inoremap <Up> <Esc>gk
+inoremap <S-Left> <Left>
+inoremap <S-Right> <Right>
+inoremap <S-Up> <Up>
+inoremap <S-Down> <Down>
+noremap <S-Left> <Left>
+noremap <S-Right> <Right>
+noremap <S-Up> <Up>
+noremap <S-Down> <Down>
 nnoremap <Down> gj
 nnoremap <Up> gk
 
@@ -273,11 +282,11 @@ inoremap <silent><C-a> <Esc>:wa<CR>:make<CR>
 nnoremap <silent>zz :quit<CR>
 
 "delete
-"inoremap    <A-.>   <Del>
-"nnoremap     <M-.>   <Del>
+"inoremap    <M-.>   <Del>
+"nnoremap    <M-.>   <Del>
 
-"nnoremap    <A-/>   dw
-"inoremap    <A-/>   <Esc>dwi
+"nnoremap    <M-/>   dw
+"inoremap    <M-/>   <Esc>dwi
 
 "insert a new line on normal mode
 "nmap <CR> o<Esc>
