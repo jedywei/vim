@@ -202,7 +202,8 @@ set laststatus=2
 " zo zc za (toggle) zR/zM
 set foldenable
 set foldmethod=syntax
-set foldnestmax=3
+set foldnestmax=6
+set foldlevelstart=6
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 nmap <Space> zA
 
