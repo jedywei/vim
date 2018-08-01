@@ -128,8 +128,9 @@ inoremap <expr><Right> pumvisible() ? "\<C-y>" : "\<Esc>\<Right>"
 set completeopt=longest,menu
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap gf :YcmCompleter GoToDefinition<CR>
-nnoremap gl :YcmCompleter GotoDeclaration<CR>
-
+nnoremap gl :YcmCompleter GoToDeclaration<CR>
+nnoremap gi :YcmCompleter GoToInclude<CR>
+nnoremap gb <C-O>
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 "let g:SuperTabDefaultCompletionType='<C-n>'
