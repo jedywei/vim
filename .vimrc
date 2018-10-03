@@ -47,7 +47,9 @@ Plugin 'honza/vim-snippets'
 Plugin 'kshenoy/vim-signature'
 Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/a.vim'
-Plugin 'vim-scripts/restore_view.vim'
+" restore_view.vim will change my current directory to for example ../great/reef
+" it's really annoyed 
+"Plugin 'vim-scripts/restore_view.vim'
 " vader.vim is alt-key mapping in terminal 
 "Plugin 'junegunn/vader.vim'
 
@@ -103,6 +105,8 @@ let g:ctrlp_by_filename=1
 "---------------------------------------------------------------------------------------
 " YouCompleteMe
 "
+"ucomment following command will disable YCM module
+"let g:loaded_youcompleteme=1
 " :h ins-completion-menu
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_complete_in_strings=1
@@ -206,7 +210,7 @@ set foldmethod=syntax
 set foldnestmax=6
 set foldlevelstart=6
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-nmap <Space> zA
+"nmap <Space> zA
 
 syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 hi def link cCustomFunc Function
@@ -294,3 +298,7 @@ nnoremap <silent>zz :quit<CR>
 "nmap <CR> o<Esc>
 
 let $VIMPROMPT="(vi)"
+
+
+"set autochdir
+"autocmd VimEnter * set autochdir
