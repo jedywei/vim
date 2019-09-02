@@ -136,6 +136,11 @@ nnoremap gl :YcmCompleter GoToDeclaration<CR>
 nnoremap gi :YcmCompleter GoToInclude<CR>
 nnoremap gb <C-O>
 
+highlight YcmWarningSection term=reverse ctermfg=black gui=undercurl guisp=#FFFFFF
+
+"-----------------------------------------------------------------------------------------------
+" Snippet 
+" Use ctrl-j to expand the snippet 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 "let g:SuperTabDefaultCompletionType='<C-n>'
 let g:UltiSnipsExpandTrigger='<C-j>'
@@ -286,6 +291,16 @@ inoremap <silent><C-a> <Esc>:wa<CR>:make<CR>
 
 " quit
 nnoremap <silent>zz :quit<CR>
+
+" paste
+imap <C-v> <ESC>"0gp
+nmap <C-v> "0gP
+vmap <C-v> y"0gP
+imap <C-c> <ESC>"0yiw
+nmap <C-c>   "0yiw
+nmap Y y$
+
+
 
 "delete
 "inoremap    <M-.>   <Del>
