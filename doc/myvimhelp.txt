@@ -1,0 +1,102 @@
+*myvimhelp.txt*     For Vim version 7.4 Last change: 2019-09-12
+*my*
+
+Jedy's cheat sheet of Vim stuff
+==========================================================================
+Common                                              *my-common*
+    - zz        - save and quit
+    - <C-s>     - save current buffer
+    - <C-a>     - save all buffers and make them
+    - :A        - switch betwen .c and .h
+    - &         - repeat last :s command
+    - <C-p>     - Ctrlp open file by fuzzy input
+    - \f        - open recent file on sub list
+    - <C-l>     - == :nohl<CR>
+    - <C-j>     - expand snippet
+    - gf        - load file under cursor filename
+    - X         - == :bd<CR>
+    - <C-e>     - escape from pop menu
+
+Insert Command Mode                                 *my-inscomm*
+
+Movement                                            *my-movement*
+    - z.        - recenter cursor line
+    - zt        - redraw cursor line at top of window 
+    - zb        - redraw cursor line at bottom of window
+    - ]]        - next function
+    - [[        - previous function
+    - %         - move to associated (), [], {}
+    - (,),{,}   - previous '(', '{' or next ')', '}'
+    - gd        - goto variable defination else declaration
+    - gl        - goto variable declaration
+    - gi        - goto include
+    - gb        - == <C-o> 
+    - G         - last line
+    - gg        - the first line
+    - 42k / 42j - jump up / down to relative number 42
+    - ; / ,     - repeat next/previous movement command
+    - w,b,e     - word, back, end
+    - W,B,E     - whole Word, Back, End
+    - 0, $      - start / end of current line
+
+
+Editing                                             *my-editing*
+    - ds" / cs" - delete / change a surrounding "
+    - ysw(      - insert a surrounding () with extra space, e.g. ( word )
+    - ysw)      - insert a surrounding () without extra space, e.g. (word)
+    - D         - == d$
+    - C         - == c$
+    - Y         - == y$
+    - ci}       - == change in {}
+
+Search                                              *my-search*
+    - <A-f>     - ack current word under cursor
+    - g*        - search next variable
+    - g#        - search previous variable
+    
+Copy & Paste                                        *my-copypaste*
+    - p         - paste before cursor
+    - P         - paste after cursor
+    - gP        - paste after cursor and follow pasted text
+    - <C-v>     - windows like paste from "0 register
+    - Y         - y$
+    - gy        - copy to clipboard
+    - gp        - paste from clipboard
+
+Registers                                           *my-registers*
+    - :reg      - show all register list
+    - :reg a b  - show a, b register
+    - ".        - last inserted text
+    - "%        - current file path
+    - <C-r>x    - INSERT MODE, paste by x register
+    - "xy       - yank data to x register
+
+Tags                                                *my-tags*
+    - :tags     - list all definitions
+   s- c-]       - jump to definition
+    - c-t       - jump to back from definition
+
+Jump List                                           *my-jumplist*
+    - :ju[mps]  - show jump list
+    - <C-o>     - previous jump
+    - <C-i>     - next jump
+
+Change List                                         *my-changelist*
+    - :changes  - show change list
+    - g;        - jump to location of older change
+    - g,        - jump to location of newer chage
+    - ``        - jump back
+    - `.        - jump last change
+
+Quickfix list                                       *my-quickfixlist*
+    - cw        - show quick fix window
+    - <Up>      - next fix
+    - <Down>    - previous fix
+    - q         - close quick fix window
+
+YouCompleteMe                                       *my-ycm*
+    - :YcmDebugInfo
+    - .include_list     - YCM look at .include_list at current dir, then parent dir util it find a one.
+
+
+

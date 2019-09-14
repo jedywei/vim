@@ -1,0 +1,72 @@
+# Jedy Wei 2019/09/09
+# snippets for doxygen
+priority -50
+
+snippet dxfile	"doxygen-file" b
+/*!
+ * @brief ${1:Brief_file_summary}
+ * @file ${2:`!p snip.rv=fn`} 
+ */
+endsnippet
+
+snippet dxfunc	"doxgen-func" b
+/*!
+ * @brief ${1:Brief_function_description}
+ * 
+ * ${0:Detailed_description._More_detail}
+ *
+ * @param ${2:<name>_Parameter_description}
+ * @param[in] ${3:<name>_Parameter_description}
+ * @param[out] ${4:<name>_Parameter_description}
+ * @return ${5:0 if successful, -1 or < 0 if an error occured}
+ * @see ${6:'somefunc()'}
+ */
+endsnippet
+
+snippet dxstruct "doxgen-structure" b
+/*! \struct $1
+ * @brief ${2:Brief_struct_description}
+ * 
+ * ${0:Detailed_description}
+ */
+endsnippet
+
+snippet dxenum "doxgen-enum" b
+/*! \enum $1
+ * @brief ${2:Brief_enum_description}
+ * 
+ * ${0:Detailed description.}
+ */
+endsnippet
+
+snippet dxdef "doxgen-define" b
+/*! \def ${1:MAX(x,y)}
+ * ${0:Computes the maximum of \a x and \a y.}
+ */
+endsnippet
+
+snippet dxaddg "doxgen-addtogroup" b
+/*! \addtogroup ${1:mygroup}
+ * Additional documentation for group '$1'
+ * @{
+ */
+${0:${VISUAL}}
+/*! @} */
+endsnippet
+
+snippet dxdefgroup "dxogen-defgroup" b
+/*! \defgroup ${1:mygroup} ${2:brief_description}
+ * @{
+ */
+${0:${VISUAL}}
+/*! @} */
+endsnippet
+
+snippet dxcode "doxgen-code" b
+\code{.c}
+${0:${VISUAL:sample_code}}
+\endcode
+endsnippet
+
+
+

@@ -8,5 +8,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 
 Restart vim
 
-
+.ycm_extra_conf_jdevlieghere.py 
+allow using .include_list to add extra header file directory include path
+refer <mediaflow>/.include_list to get more information
 

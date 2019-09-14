@@ -4,10 +4,10 @@ priority -50
 
 snippet defcfile  "/* ... ACL License ... */" b
 /*
- *  @file	${1://file name } 
- *  @brief	${2://brief }   
+ *  @file	${2:`!p snip.rv=fn`} 
+ *  @brief	${1:// Brief}   
  *
- *  Copyright (C) 2016 Advantech Co., Ltd. - http://www.advantech.com.tw/   
+ *  Copyright (C) 2019 Advantech Co., Ltd. - http://www.advantech.com.tw/   
  *   All Rights Reserved. 
  *
  *  NOTICE:  All information contained herein is, and remains the property of 
@@ -19,36 +19,38 @@ snippet defcfile  "/* ... ACL License ... */" b
  *    is strictly forbidden unless prior written permission is obtained
  *    from Advantech Co., Ltd.
  *
- *  @date   ${3:date}    jedy.wei     New file  
+ *  @date   `date +%Y/%m/%d`    jedy.wei     New file  
  *
  */
+ ${0}
 endsnippet
 
 # new bsd license file
 snippet defbsdfile  "/* ... BSD License ... */" b
 /*
- *  @file	${1://file name } 
- *  @brief	${2://brief }   
+ *  @file	${2:`!p snip.rv=fn`} 
+ *  @brief	${1:// Brief }   
  *
- *  Copyright (C) 2016 Advantech Co., Ltd. - http://www.advantech.com.tw/   
+ *  Copyright (C) 2019 Advantech Co., Ltd. - http://www.advantech.com.tw/   
  *   All Rights Reserved. 
  * 
  *  This software may be modified and distributed under the terms
  *  of the BSD license.  See the LICENSE file for details.
  *
- *  @date   ${3:date}    jedy.wei     New file  
+ *  @date   `date +%Y/%m/%d`    jedy.wei     New file  
  *
  */
+ ${0}
 endsnippet
 
 
 # new header file
 snippet defhfile  "/* ... ACL License for H ... */" b
 /*
- *  @file	${1:// file name} 
- *  @brief	${2:// brief}   
+ *  @file	${2:`!p snip.rv=fn`} 
+ *  @brief	${1:// Brief}   
  *
- *  Copyright (C) 2016 Advantech Co., Ltd. - http://www.advantech.com.tw/   
+ *  Copyright (C) 2019 Advantech Co., Ltd. - http://www.advantech.com.tw/   
  *   All Rights Reserved. 
  *
  *  NOTICE:  All information contained herein is, and remains the property of 
@@ -60,22 +62,21 @@ snippet defhfile  "/* ... ACL License for H ... */" b
  *    is strictly forbidden unless prior written permission is obtained
  *    from Advantech Co., Ltd.
  *
- *  @date   ${3:date}   jedy.wei     New file  
+ *  @date   `date +%Y/%m/%d`   jedy.wei     New file  
  *
  */
-${0}
 
-#ifndef ${4:__x_H}
-#define $4
+#ifndef __${3:`!p snip.rv=snip.basename.upper()`}_H
+#define __$3_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+${0}
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* $4 */
+#endif /* __$3_H */
 endsnippet
 

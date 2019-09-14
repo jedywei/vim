@@ -1,0 +1,128 @@
+# Jedy Wei 2019/09/09
+# snippet for Makefile
+
+# def junity Makefile
+snippet defjunity "Makefile for junity" b
+#
+# @file Makefile 
+# @brief Makfile for junity test program
+# 
+# Copyright (C) 2017 Advantech Co., Ltd. - http://www.advantech.com.tw/
+#  All Rights Reserved
+#
+#  NOTICE:  All information contained herein is, and remains the property of  
+#    Advantech Co., Ltd. and its suppliers, if any.  The intellectual and  
+#    technical concepts contained herein are proprietary to Advantech Co., Ltd. 
+#    and its suppliers and may be covered by U.S. and Foreign Patents, 
+#    patents in process, and are protected by trade secret or copyright law. 
+#    Dissemination of this information or reproduction of this material 
+#    is strictly forbidden unless prior written permission is obtained 
+#    from Advantech Co., Ltd. 
+#  
+# @date   `date +%Y/%m/%d`         jedy.wei        New File 
+# DON'T CHANGE -------------------------------------------------------------------
+find_top=$(if $(wildcard \$1/scripts/auto_rules.mk),\$1,$(if $(filter-out /,\$1),$(call find_top,$(realpath \$1/..)),$(error "Error! Couldn't find auto_rules.mk")))
+TOP:=$(strip $(call find_top,$(shell pwd)))
+SRC_TYPE   := PROPRIETARY
+# TILL HERE ----------------------------------------------------------------------
+
+############################### SCRIPTS SECTION ###################################
+include $(TOP)/Target.mk
+
+############################### TARGET SECTION ###################################
+SUT_TARGETS += ${1:# yourtarget}
+
+############################### OBJECTS SECTION ###################################
+VPATH := ..
+JUCFLAGS += -g -I$(BAY_TOP)
+
+
+$1_SUT_SOURCES =
+$1_JUD_SOURCES = ju_$1.c
+$1_DOC_SOURCES =
+$1_LIBS = -L$(LIB_DIR) -l:libbass.a
+$1_LDFLAGS =
+$1_CFLAGS  = 
+
+
+############################### JUNITY RULES ####################################
+include \$(JUNITY_TOP)/junity.make
+endsnippet
+
+snippet defmake "Makefile" b
+#
+# @file Makefile 
+# @brief ${1:something} Makfile
+# 
+# Copyright (C) 2017 Advantech Co., Ltd. - http://www.advantech.com.tw/
+#  All Rights Reserved
+#
+#  NOTICE:  All information contained herein is, and remains the property of  
+#    Advantech Co., Ltd. and its suppliers, if any.  The intellectual and  
+#    technical concepts contained herein are proprietary to Advantech Co., Ltd. 
+#    and its suppliers and may be covered by U.S. and Foreign Patents, 
+#    patents in process, and are protected by trade secret or copyright law. 
+#    Dissemination of this information or reproduction of this material 
+#    is strictly forbidden unless prior written permission is obtained 
+#    from Advantech Co., Ltd. 
+#  
+# @date   `date +%Y/%m/%d`         jedy.wei        New File 
+# DON'T CHANGE -------------------------------------------------------------------
+find_top=$(if $(wildcard \$1/scripts/auto_rules.mk),\$1,$(if $(filter-out /,\$1),$(call find_top,$(realpath \$1/..)),$(error "Error! Couldn't find auto_rules.mk")))
+TOP:=$(strip $(call find_top,$(shell pwd)))
+SRC_TYPE   := PROPRIETARY
+# TILL HERE ----------------------------------------------------------------------
+
+############################### SCRIPTS SECTION ###################################
+include $(TOP)/Target.mk
+include $(TOP)/scripts/auto_rules.mk
+
+######################## TARGET SECTION ######################## 
+#TARGET_SH_LIBS := ${2:# shared library name}
+#TARGET_ST_LIBS := $2
+TARGET_BINS		:= ${3:# target binary}
+
+
+######################## OBJECTS SECTION ######################## 
+VPATH = 
+CFLAGS += -O3
+INCLUDES += -I. -I$(BAY_TOP) 
+
+$2_APIS				:= 
+$2_OBJECTS      	:=  
+$2_DEPLIBS      	:=  
+$2_SYSLIBS      	:= -lpthread -lrt
+$2_GENASM       	:= 1
+$2_GENPREPROC   	:= 1
+$2_VERSION      	:= 1
+$2_INSTALL			:= /usr/local/lib
+$2_APIMAP			:= 
+
+$3_OBJECTS      := $3.o
+$3_DEPLIBS     	:= $(LIB_DIR) -l:libbay.a 
+$3_SYSLIBS     	:= -lpthread -lrt
+$3_GENASM      	:= 1
+$3_GENPREPROC  	:= 1
+$3_VERSION      := 1
+$3_INSTALL		:= /usr/local/lib
+
+
+######################## AUTO RULE GENERATION ######################## 
+$(call GEN_AUTO_TARGETS)
+#$(call ADD_RELEASE, releaes_module)
+#$(call ADD_DISTCLEAN, distclean_module)
+#$(call ADD_DEPLOY,deploy_module)
+
+#.PHONY: release_module
+#relase_module:
+
+endsnippet
+
+
+# deftop
+snippet deftop
+find_top=$(if $(wildcard \$1/scripts/auto_rules.mk),\$1,$(if $(filter-out /,\$1),$(call find_top,$(realpath \$1/..)),$(error "Error! Couldn't find auto_rules.mk")))
+TOP:=$(strip $(call find_top,$(shell pwd)))
+SRC_TYPE   := PROPRIETARY
+endsnippet
+	

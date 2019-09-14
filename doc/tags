@@ -1,0 +1,14 @@
+my	myvimhelp.txt	/*my*
+my-changelist	myvimhelp.txt	/*my-changelist*
+my-common	myvimhelp.txt	/*my-common*
+my-copypaste	myvimhelp.txt	/*my-copypaste*
+my-editing	myvimhelp.txt	/*my-editing*
+my-inscomm	myvimhelp.txt	/*my-inscomm*
+my-jumplist	myvimhelp.txt	/*my-jumplist*
+my-movement	myvimhelp.txt	/*my-movement*
+my-quickfixlist	myvimhelp.txt	/*my-quickfixlist*
+my-registers	myvimhelp.txt	/*my-registers*
+my-search	myvimhelp.txt	/*my-search*
+my-tags	myvimhelp.txt	/*my-tags*
+my-ycm	myvimhelp.txt	/*my-ycm*
+myvimhelp.txt	myvimhelp.txt	/*myvimhelp.txt*

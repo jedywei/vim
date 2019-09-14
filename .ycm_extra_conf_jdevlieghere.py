@@ -1,3 +1,17 @@
+# .ycm_extra_conf_jdevlieghere.py
+# 2018/03/21 by Jedy.Wei
+# This file help YCMDiagnostic and YCMComplete to set up
+#   the Warning flags and Include header files searching path. 
+#   If there is no completation database specified, it will
+#   use '/usr/lib', /usr/include/' and '.' as default include
+#   header searching path and add all path declaried on the 
+#   ".include_list" file. It first read the .include_list at 
+#   the current working dir, then the parent directroy, and
+#   so on. 
+#       1. compile_commands.json
+#       2. .clang_complete
+#       3. .../include/ 
+
 import os
 import os.path
 import fnmatch
@@ -150,7 +164,9 @@ def FlagsForIncludeList(root):
 
         flags = []
         for line in lines:
-            if line.startswith('/'):
+            if line.startswith('#'):
+                pass  # skip the comment line
+            elif line.startswith('/'):
                 flags += [ '-I', line ]
             elif line.startswith('.'):
                 flags += [ '-I', line[2:]]
