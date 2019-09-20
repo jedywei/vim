@@ -82,7 +82,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 set encoding=utf-8
 " timeoutlen is used for mapping delay, and ttimoutlen is used for key delays. unit in ms
 set ttimeoutlen=50
-
+set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 
 "----------------------------------------------------------------------------------------
 " Tagbar    \L
