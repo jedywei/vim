@@ -5,19 +5,26 @@ Jedy's cheat sheet of Vim stuff
 ==========================================================================
 Common                                              *my-common*
     - zz        - save and quit
-    - <C-s>     - save current buffer
+    - s         - save current buffer
+    - X         - == :bd<CR>
     - <C-a>     - save all buffers and make them
     - :A        - switch betwen .c and .h
     - &         - repeat last :s command
     - <C-p>     - Ctrlp open file by fuzzy input
-    - \f        - open recent file on sub list
+    - \F        - open recent file on sub list
+    - \n        - toggle normal mode relative line number
+    - \b,\f,\g  - go back / forward / last-used buffer
+    - \1 ~ \0   - go to buffer 1, 2, ~ , 10 etc
     - <C-l>     - == :nohl<CR>
     - <C-j>     - expand snippet
     - gf        - load file under cursor filename
-    - X         - == :bd<CR>
     - <C-e>     - escape from pop menu
+    - <S-arrow> - insert mode movement
 
 Insert Command Mode                                 *my-inscomm*
+    - <C-r>x    - insert register x
+    - <C-u>     - remove all characters before cursor
+    - <C-w>     - remove word before cursor
 
 Movement                                            *my-movement*
     - z.        - recenter cursor line

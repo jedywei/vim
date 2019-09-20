@@ -8,9 +8,8 @@
 " :set <option>?	<-- show the option value
 " :map <F2>         <-- to get <F2> binding (or map)
 "
-"--------------------------------------------------------------
 " Features {{{ 1
-"
+"----------------------------------------------------------------------------
 " Set 'nocompatible' to ward off unexpected things that your distro might
 " have made, as well as snely reset optiions when re-sourcing .vimrc
 set nocompatible
@@ -23,9 +22,10 @@ set nocompatible
 syntax on
 set background=dark
 colorscheme valloric
+" }}} End of Features
 
-"---------------------------------------------------------------------
 " Vundle plugin {{{ 1
+"------------------------------------------------------------------------------------
 " Brief help / :PluginList / :PluginInstall / :PluginSearch <foo>
 
 filetype off    
@@ -35,7 +35,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 "-------------------------------------------------------------------
-" Plugin {{{ 1
+" Plugin
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
@@ -49,6 +49,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
+"Plugin 'tommcdo/vim-lion'
 "Plugin 'kana/vim-textobj-user'
 "Plugin 'Julian/vim-textobj-variable-segment'
 " restore_view.vim will change my current directory to for example ../great/reef
@@ -60,10 +61,10 @@ Plugin 'tpope/vim-commentary'
 " vundle#end() can active all Plugin
 call vundle#end()
 filetype plugin indent on
+" }}} End of Vundle plugin 
 
-"-------------------------------------------------------------------
-" Setting for Plugin {{{ 1
-"
+" Plugin Settings {{{ 1
+"-----------------------------------------------------------------------------------------
 " vim-airline setting
 
 set laststatus=2
@@ -77,7 +78,7 @@ let g:airline#extension#tabline#left_sep=' '
 " set left separator which are not editting
 let g:airline#extension#tabline#left_alt_sep ='|'
 " show buffer number
-let g:airline#extension#tabline#buffer_nr_show=1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 set encoding=utf-8
 " timeoutlen is used for mapping delay, and ttimoutlen is used for key delays. unit in ms
 set ttimeoutlen=50
@@ -103,18 +104,19 @@ let g:tagbar_ctags_bin = 'ctags'
 set tags=tags;
 
 "---------------------------------------------------------------------------------------
-" CtrlP     ctrl-p  \f
+" CtrlP     ctrl-p  \F
 " 
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
 " 
 let g:ctrlp_map='<C-p>'
 let g:cgrlp_cmd='CtrlP'
-map <leader>f :CtrlPMRU<cr>
+map <Leader>F :CtrlPMRU<cr>
 let g:ctrlp_custom_ignore={
     \ 'dir': '\v[\/]\.(git|hg|svn|rvm)$',
-    \ 'file': '\v\.(exe|so|dll|zip|tar|tgz|tar.gz|pyc|mov|png|h265|h264)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tgz|tar.gz|pyc|mov|png|h265|h264|mp4|ts)$',
     \}
-let g:ctrlp_working_path_mode=0
+let g:ctrlp_root_markers=['.ctrlp']
+let g:ctrlp_working_path_mode='rc'
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_match_window_reversed=0
 let g:ctrlp_mruf_max=500
@@ -159,6 +161,7 @@ let g:ycm_key_list_stop_completion = ['<C-y>']
 let g:ycm_key_list_previous_completion=['<C-p>', '<S-TAB>']
 let g:ycm_key_list_select_completion=['<C-n>', '<TAB>']
 "inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
+" Arrow Key mapping for insert mode
 inoremap <expr><Up> pumvisible() ? "\<Up>" : "\<Esc>gk"
 inoremap <expr><Down> pumvisible() ? "\<Down>" : "\<Esc>gj"
 inoremap <expr><Left> pumvisible() ? "\<C-e>\<Esc>a" : "\<Esc>\<Left>"
@@ -168,7 +171,7 @@ nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "nnoremap gf :YcmCompleter GoToDefinition<CR>
 nnoremap gl :YcmCompleter GoToDeclaration<CR>
 nnoremap gi :YcmCompleter GoToInclude<CR>
-nnoremap gb <C-O>
+"nnoremap gb <C-O>
 
 let g:ycm_always_populate_location_list=1
 highlight YcmWarningSection term=reverse ctermfg=black gui=undercurl guisp=#FFFFFF
@@ -211,25 +214,49 @@ endif
 
 cnoreabbrev Ack Ack!
 cnoreabbrev ack Ack!
-cnoreabbrev ag Ack!
 
-"bind <A-f> to grep word under cursor
-execute "set <A-f>=\ef"
-nnoremap <silent><A-f> :Ack! "\b<C-R><C-W>\b"<CR>
-" <CR> to select item and close quickfix windows
-autocmd BufReadPost quickfix nnoremap <buffer><CR> <CR><C-W>p<C-W>c
+"let g:ackpreview=1
 
+
+" }}} End of Plugin Setting
 
 "-------------------------------------------------------------
-" My Own help. 
+" My Own help and My own plugin 
 " NOTE: helptags path/doc     doc is must
 if filereadable(expand('~/.vim/doc/myvimhelp.txt'))
     helpt ~/.vim/doc/
 endif
 
+" * starsearch
+if filereadable(expand('~/.vim/script/starsearch.vim'))
+    source ~/.vim/script/starsearch.vim
+endif
+" projectdir
 
-"-------------------------------------------------------------
-" Must have options {{{ 1
+if filereadable(expand('~/.vim/script/projectdir.vim'))
+    source ~/.vim/script/projectdir.vim
+    let g:projectdir_rootmarkers = g:ctrlp_root_markers
+endif
+
+"bind <C-f> to grep word under cursor
+if exists('*projectdir#get')
+    let g:hasget = 1
+    function! AckSearchWithProjectdir(item)
+        echom a:item " " projectdir#get()
+        execute 'Ack! ' . a:item . ' ' . projectdir#get()
+    endfunction
+    nnoremap <silent><C-f> :call AckSearchWithProjectdir("<C-R><C-W>")<CR> 
+    command! -nargs=1 Agdir call AckSearchWithProjectdir(<f-args>)
+    cnoreabbrev ag Agdir
+else
+    let g:hasget = 0
+    nnoremap <silent><C-f> :Ack! "\b<C-R><C-W>\b"<CR>
+    cnoreabbrev ag Ack!
+endif
+" 
+" Option Settings {{{ 1
+"-----------------------------------------------------------------------------------
+" Must have options 
 "
 " 'hidden' option, which allows you to re-use the same window and switch
 " from an unsaved buffer without saving it first. 
@@ -242,7 +269,7 @@ set wildmenu
 " Show partial commands in the last line of the screen
 set showcmd
 
-" Highlight searches (use <C-L> to temporarily turn off highlight
+" Highlight searches (use <C-l> to temporarily turn off highlight
 set hlsearch
 " Modelines have historically been a source of security vunerabilities. As
 " such, it may be a good idea to disable them and use the securemodelines
@@ -251,7 +278,7 @@ set hlsearch
 " set nomodeline
 
 "-------------------------------------------------------------
-" Usability options {{{ 1
+" Usability options 
 "
 " Allow backspacing over autoindent, line breaks and start of insert action
 "set ignorecase
@@ -272,19 +299,24 @@ set t_vb=
 set mouse=
 " set mouse=a
 set pastetoggle=<F10>
+set incsearch
 
 "----------------------------------------------------------------------
-" Identation options {{{ 1
+" Identation options 
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 set laststatus=2
 
 "----------------------------------------------------------------------
-" Folding options {{{ 1         
+" Folding options          
 " zo zc za (toggle) zR/zM
 set foldenable
-set foldmethod=syntax
+set foldmethod=manual
+augroup foldmarker
+    autocmd!
+    autocmd FileType vim :set foldmethod=marker
+augroup END
 set foldnestmax=6
 set foldlevelstart=6
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
@@ -294,7 +326,7 @@ syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 hi def link cCustomFunc Function
 
 "----------------------------------------------------------------------
-" Resotre-view option {{{ 1
+" Resotre-view option 
 
 set viewoptions=cursor,folds,slash,unix
 "let g:skipview_files=['\.vim']
@@ -318,24 +350,35 @@ else
     let &t_SI = "\e[5 q"
     let &t_EI = "\e[1 q"
 endif
-autocmd InsertEnter * set cul
-autocmd InsertLeave * set nocul
-
 " Set // as C, C++, CS and java comment string
-autocmd FileType c,cpp,cs,java     setlocal commentstring=//\ %s
+augroup clike_commentstring
+    autocmd!
+    autocmd FileType c,cpp,cs,java     setlocal commentstring=//\ %s
+augroup END
 
 " Set auto switch linenumber
 set number relativenumber
+let g:always_setnorelativenumber=0
 augroup numbertoggle
+    function! s:SetLineNumber()
+        if (g:always_setnorelativenumber)
+            set norelativenumber
+        else
+            set relativenumber
+        endif
+    endfunction 
     autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufEnter,FocusGained,InsertLeave * call <SID>SetLineNumber()
     autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
+    autocmd InsertEnter * set cursorline
+    autocmd InsertLeave * set nocursorline
+    nnoremap <silent><Leader>n :let g:always_setnorelativenumber=!g:always_setnorelativenumber<CR>:call <SID>SetLineNumber()<CR>
 augroup END
 
+" }}} End of Option Settings
 
-"----------------------------------------------------------------------
-" Mappings {{{ 1
-
+" Key Mappings {{{ 1
+"----------------------------------------------------------------------------------------
 " Map <C-L> (redraw screen) to also turn off search highlighting utnil the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
@@ -353,7 +396,12 @@ nnoremap <C-A-Up> :cprev<CR>
 inoremap <C-A-Down> <Esc>:cnext<CR>
 inoremap <C-A-Up> <Esc>:cprev<CR>
 
+" Backspace and Del to enter insert mode
+nnoremap <silent><BS> i<BS>
+nnoremap <silent><Del> i<Del>
+
 " Cursor Movement
+" insert mode arrow key has been defined above at YCM
 "inoremap <Left> <Esc><Left>
 "inoremap <Right> <Esc><Right>
 "inoremap <Down> <Esc>gj
@@ -394,35 +442,46 @@ nnoremap <A-Up> [[
 nnoremap <A-Down> ]]
 
 " {}() movement for c language
-autocmd FileType c  nnoremap <silent>}  :call search('}')<CR>
-autocmd FileType c  nnoremap <silent>{  :call search('{','b')<CR>
-autocmd FileType c  nnoremap <silent>)  :call search(')')<CR>
-autocmd FileType c  nnoremap <silent>(  :call search('(','b')<CR>
+augroup BucketRedefine
+    autocmd! 
+    autocmd FileType c  nnoremap <silent>}  :call search('}')<CR>:let @/='}'<CR>
+    autocmd FileType c  nnoremap <silent>{  :call search('{')<CR>:let @/='{'<CR>
+    autocmd FileType c  nnoremap <silent>)  :call search(')')<CR>:let @/=')'<CR>
+    autocmd FileType c  nnoremap <silent>(  :call search('(')<CR>:let @/='('<CR>
+augroup END
 
 "save
 nnoremap <silent> s :w<CR>
 nnoremap <C-s> :wa<CR>
 inoremap <C-s> <C-o>:wa<CR>
-noremap <silent><C-a> :wa<CR>:make<CR>:cw<CR>
-inoremap <silent><C-a> <Esc>:wa<CR>:make<CR>:cw<R>
+noremap <silent><C-a> :wa<CR>:make<CR>
+inoremap <silent><C-a> <Esc>:wa<CR>:make<CR>
 
 " quit
 nnoremap <silent>zz :quit<CR>
 nnoremap <silent>X :bd<CR>
 
 " paste
-imap <C-v> <ESC>"0gp
-nmap <C-v> "0gP
-vmap <C-v> <ESC>"0gP
+inoremap <C-v> <ESC>"0gp
+nnoremap <C-v> "0gP
+vnoremap <C-v> <ESC>"0gP
+cnoremap <C-v> <C-r>"
 " copy
-imap <C-c> <ESC>"0yiw
-nmap <C-c>   "0yiw
-vmap <C-c> ygv<ESC>
-nmap Y y$
-vmap gy :w! ~/.vimclipboard<CR>
-nmap gy :.w! ~/.vimclipboard<CR>
-nmap gp :r ~/.vimclipboard<CR>
+inoremap <C-c> <ESC>"0yiw
+nnoremap <C-c>   "0yiw
+vnoremap <C-c> ygv<ESC>
+nnoremap Y y$
+vnoremap gy :w! ~/.vimclipboard<CR>
+nnoremap gy :.w! ~/.vimclipboard<CR>
+nnoremap gp :r ~/.vimclipboard<CR>
 
+
+" window toggle
+nnoremap <C-x> <C-w>w
+augroup WindowToggle
+    autocmd!
+    autocmd CmdWinEnter * nnoremap <buffer><C-x> <C-c>
+augroup End
 
 "delete
 "inoremap    <M-.>   <Del>
@@ -431,6 +490,26 @@ nmap gp :r ~/.vimclipboard<CR>
 "nnoremap    <M-/>   dw
 "inoremap    <M-/>   <Esc>dwi
 
+"--------------------------------------------------------------------
+" Mappings to access buffers
+" \b \f \g : go back/forward/last-used
+" \1 \2 \3 : go to buffer 1, 2, 3, ... etc
+
+nnoremap <silent><Leader>b  :bp<CR>
+nnoremap <silent><Leader>f  :bn<CR>
+nnoremap <silent><Leader>g  :e#<CR>
+nnoremap <silent><Leader>1  :1b<CR>
+nnoremap <silent><Leader>2  :2b<CR>
+nnoremap <silent><Leader>3  :3b<CR>
+nnoremap <silent><Leader>4  :4b<CR>
+nnoremap <silent><Leader>5  :5b<CR>
+nnoremap <silent><Leader>6  :6b<CR>
+nnoremap <silent><Leader>7  :7b<CR>
+nnoremap <silent><Leader>8  :8b<CR>
+nnoremap <silent><Leader>9  :9b<CR>
+nnoremap <silent><Leader>0  :10b<CR>
+
+
 "----------------------------------------------------------------------
 " map for programming development shortcut
 nnoremap <silent>gh :A<CR>
@@ -438,14 +517,24 @@ nnoremap <silent>gh :A<CR>
 "----------------------------------------------------------------------
 " q mapping for close quickfix, location and help window
 
-autocmd FileType help nnoremap <buffer>q :q<CR>
-autocmd FileType qf nnoremap <buffer>q :ccl<CR>
-autocmd FileType qf nnoremap <buffer><Up> :cp<CR><C-w>p
-autocmd FileType qf nnoremap <buffer><Down> :cn<CR><C-w>p
-autocmd FileType qf nnoremap <buffer><C-Up> k
-autocmd FileType qf nnoremap <buffer><C-Down> j
-autocmd FileType qf nnoremap <buffer><C-Left> h
-autocmd FileType qf nnoremap <buffer><C-Right> l
-"autocmd WinEnter qf nnoremap <buffer><CR> <C-w>p
+augroup QuickFix_KeyMapping
+    autocmd!
+    autocmd FileType help nnoremap <buffer>q :q<CR>
+    autocmd FileType help nnoremap <buffer><ESC> :q<CR>
+    autocmd CmdWinEnter * nnoremap <buffer>q :q<CR>
+    autocmd CmdWinEnter * nnoremap <buffer><ESC> :q<CR>
+    autocmd FileType quickfix nnoremap <buffer>q :ccl<CR>
+    autocmd FileType quickfix nnoremap <buffer><ESC> :ccl<CR>
+    autocmd FileType quickfix nnoremap <buffer><Up> :cp<CR><C-w>p
+    autocmd FileType quickfix nnoremap <buffer><Down> :cn<CR><C-w>p
+    autocmd FileType quickfix nnoremap <buffer><S-Up> k
+    autocmd FileType quickfix nnoremap <buffer><S-Down> j
+    autocmd FileType quickfix nnoremap <buffer><S-Left> h
+    autocmd FileType quickfix nnoremap <buffer><S-Right> l
+    autocmd FileType quickfix nnoremap <buffer><CR> <C-w>p
+    autocmd QuickFixCmdPost [^l]* nested cwindow
+    autocmd QuickFixCmdPost    l* nested lwindow
+augroup End
+" }}} End of Key Mappings
 
 " last line ----------
