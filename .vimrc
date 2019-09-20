@@ -397,8 +397,8 @@ inoremap <C-A-Down> <Esc>:cnext<CR>
 inoremap <C-A-Up> <Esc>:cprev<CR>
 
 " Backspace and Del to enter insert mode
-nnoremap <silent><BS> i<BS>
-nnoremap <silent><Del> i<Del>
+"nnoremap <silent><BS> i<BS>
+nnoremap <silent><Del> i<BS>
 
 " Cursor Movement
 " insert mode arrow key has been defined above at YCM
