@@ -110,7 +110,8 @@ set tags=tags;
 " 
 let g:ctrlp_map='<C-p>'
 let g:cgrlp_cmd='CtrlP'
-map <Leader>F :CtrlPMRU<cr>
+map <Leader>F :CtrlPMRU<CR>
+map <A-f> :CtrlPMRU<CR>
 let g:ctrlp_custom_ignore={
     \ 'dir': '\v[\/]\.(git|hg|svn|rvm)$',
     \ 'file': '\v\.(exe|so|dll|zip|tar|tgz|tar.gz|pyc|mov|png|h265|h264|mp4|ts)$',
@@ -171,7 +172,7 @@ nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "nnoremap gf :YcmCompleter GoToDefinition<CR>
 nnoremap gl :YcmCompleter GoToDeclaration<CR>
 nnoremap gi :YcmCompleter GoToInclude<CR>
-"nnoremap gb <C-O>
+nnoremap gb <C-O>
 
 let g:ycm_always_populate_location_list=1
 highlight YcmWarningSection term=reverse ctermfg=black gui=undercurl guisp=#FFFFFF
@@ -315,7 +316,7 @@ set foldenable
 set foldmethod=manual
 augroup foldmarker
     autocmd!
-    autocmd FileType vim :set foldmethod=marker
+    autocmd FileType vim :setlocal foldmethod=marker
 augroup END
 set foldnestmax=6
 set foldlevelstart=6
@@ -369,9 +370,9 @@ augroup numbertoggle
     endfunction 
     autocmd!
     autocmd BufEnter,FocusGained,InsertLeave * call <SID>SetLineNumber()
-    autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
-    autocmd InsertEnter * set cursorline
-    autocmd InsertLeave * set nocursorline
+    autocmd BufLeave,FocusLost,InsertEnter * setlocal norelativenumber
+    autocmd InsertEnter * setlocal cursorline
+    autocmd InsertLeave * setlocal nocursorline
     nnoremap <silent><Leader>n :let g:always_setnorelativenumber=!g:always_setnorelativenumber<CR>:call <SID>SetLineNumber()<CR>
 augroup END
 
@@ -389,12 +390,6 @@ nnoremap <C-A-Left> :bprev<CR>
 inoremap <C-A-Right> <ESC>:bnext<CR>
 inoremap <C-A-Left> <Esc>:bprev<CR>
 
-
-" Quickfix up / down 
-nnoremap <C-A-Down> :cnext<CR>
-nnoremap <C-A-Up> :cprev<CR>
-inoremap <C-A-Down> <Esc>:cnext<CR>
-inoremap <C-A-Up> <Esc>:cprev<CR>
 
 " Backspace and Del to enter insert mode
 "nnoremap <silent><BS> i<BS>
@@ -444,10 +439,10 @@ nnoremap <A-Down> ]]
 " {}() movement for c language
 augroup BucketRedefine
     autocmd! 
-    autocmd FileType c  nnoremap <silent>}  :call search('}')<CR>:let @/='}'<CR>
-    autocmd FileType c  nnoremap <silent>{  :call search('{')<CR>:let @/='{'<CR>
-    autocmd FileType c  nnoremap <silent>)  :call search(')')<CR>:let @/=')'<CR>
-    autocmd FileType c  nnoremap <silent>(  :call search('(')<CR>:let @/='('<CR>
+    autocmd FileType c  nnoremap <silent><buffer>}  :call search('}')<CR>:let @/='}'<CR>
+    autocmd FileType c  nnoremap <silent><buffer>{  :call search('{')<CR>:let @/='{'<CR>
+    autocmd FileType c  nnoremap <silent><buffer>)  :call search(')')<CR>:let @/=')'<CR>
+    autocmd FileType c  nnoremap <silent><buffer>(  :call search('(')<CR>:let @/='('<CR>
 augroup END
 
 "save
@@ -523,10 +518,10 @@ augroup QuickFix_KeyMapping
     autocmd FileType help nnoremap <buffer><ESC> :q<CR>
     autocmd CmdWinEnter * nnoremap <buffer>q :q<CR>
     autocmd CmdWinEnter * nnoremap <buffer><ESC> :q<CR>
-    autocmd FileType quickfix nnoremap <buffer>q :ccl<CR>
-    autocmd FileType quickfix nnoremap <buffer><ESC> :ccl<CR>
-    autocmd FileType quickfix nnoremap <buffer><Up> :cp<CR><C-w>p
-    autocmd FileType quickfix nnoremap <buffer><Down> :cn<CR><C-w>p
+    autocmd FileType quickfix nnoremap <buffer>q :call QuickfixCommand('q', 1)
+    autocmd FileType quickfix nnoremap <buffer><ESC> :call QuickfixCommand("\<ESC>", 1)
+    autocmd FileType quickfix nnoremap <buffer><Up> :call QuickfixCommand('"\<Up>"', 1)
+    autocmd FileType quickfix nnoremap <buffer><Down> :call QuickfixCommand("\<Down>" 1)
     autocmd FileType quickfix nnoremap <buffer><S-Up> k
     autocmd FileType quickfix nnoremap <buffer><S-Down> j
     autocmd FileType quickfix nnoremap <buffer><S-Left> h
@@ -534,6 +529,39 @@ augroup QuickFix_KeyMapping
     autocmd FileType quickfix nnoremap <buffer><CR> <C-w>p
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost    l* nested lwindow
+    " Quickfix up / down 
+    nnoremap <C-A-Down> :call QuickfixCommand("\<Down>", 0)
+    nnoremap <C-A-Up> :call QuickfixCommand("\<Up>", 0)
+    inoremap <C-A-Down> <Esc>:call QuickfixCommand("\<Down>", 0)
+    inoremap <C-A-Up> <Esc>:call QuickfixCommand("\<Up>", 0)
+
+    function! QuickfixCommand(key, switchwin)
+        if empty(getqflist())
+            if a:key == 'q' || a:key == "\<ESC>"
+                execute 'lcl'
+            elseif a:key == "\<Up>"
+                execute 'lp'
+                if a:switchwin | execute "normal! \<C-w>p" | endif
+            elseif a:key == "\<Down>"
+                execute 'ln'
+                if a:switchwin | execute "normal! \<C-w>p" | endif
+            else
+                execute a:key
+            endif
+        else
+            if a:key == 'q' || a:key == "\<ESC>"
+                execute 'ccl'
+            elseif a:key == "\<Up>"
+                execute 'cp'
+                if a:switchwin | execute "normal! \<C-w>p" | endif
+            elseif a:key == "\<Down>"
+                execute 'cn'
+                if a:switchwin | execute "normal! \<C-w>p" | endif
+            else
+                execute a:key
+            endif
+        endif
+    endfunction 
 augroup End
 " }}} End of Key Mappings
 
