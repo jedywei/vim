@@ -38,7 +38,7 @@ Plugin 'gmarik/Vundle.vim'
 " Plugin
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
@@ -49,19 +49,25 @@ Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
+Plugin 'romainl/vim-qf'
+Plugin 'chrisbra/Recover.vim'
 "Plugin 'tommcdo/vim-lion'
 "Plugin 'kana/vim-textobj-user'
 "Plugin 'Julian/vim-textobj-variable-segment'
-" restore_view.vim will change my current directory to for example ../great/reef
-" it's really annoyed 
+" restore_view.vim 
+"   it will change my current directory to for example ../great/reef,  it's really annoying
 "Plugin 'vim-scripts/restore_view.vim'
-" vader.vim is alt-key mapping in terminal 
+" vader.vim is alt-key mapping in terminal
+"   it doesn't work for terminal with ssh remote target
 "Plugin 'junegunn/vader.vim'
 
 " vundle#end() can active all Plugin
 call vundle#end()
 filetype plugin indent on
 " }}} End of Vundle plugin 
+
+"let g:RecoverPlugin_Prompt_Verbose=1
+let g:RecoverPlugin_Edit_Unmodified=1
 
 " Plugin Settings {{{ 1
 "-----------------------------------------------------------------------------------------
@@ -80,7 +86,9 @@ let g:airline#extension#tabline#left_alt_sep ='|'
 " show buffer number
 let g:airline#extensions#tabline#buffer_nr_show = 1
 set encoding=utf-8
-" timeoutlen is used for mapping delay, and ttimoutlen is used for key delays. unit in ms
+" timeoutlen is used for key stroke delay 
+" ttimeoutlen is used for mapping delay 
+set timeoutlen=2000
 set ttimeoutlen=50
 set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 
@@ -92,7 +100,7 @@ set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 " sidebar that displays the ctags-generated tags of the current file, orderd
 " by there scope. 
 nmap <leader>L :TagbarToggle<cr>
-cnoremap <silent>L<cr> :TagbarToggle<cr>
+"cnoremap <silent>L<cr> :TagbarToggle<cr>
 execute "set <A-l>=\el"
 nmap <silent><A-l> :TagbarToggle<CR>
 imap <silent><A-l> :TagbarToggle<CR>
@@ -110,8 +118,9 @@ set tags=tags;
 " 
 let g:ctrlp_map='<C-p>'
 let g:cgrlp_cmd='CtrlP'
-map <Leader>F :CtrlPMRU<CR>
-map <A-f> :CtrlPMRU<CR>
+nnoremap <Leader>p :CtrlPMRU<CR>
+nnoremap <A-p> :CtrlPMRU<CR>
+inoremap <A-p> :CtrlPMRU<CR>
 let g:ctrlp_custom_ignore={
     \ 'dir': '\v[\/]\.(git|hg|svn|rvm)$',
     \ 'file': '\v\.(exe|so|dll|zip|tar|tgz|tar.gz|pyc|mov|png|h265|h264|mp4|ts)$',
@@ -124,6 +133,14 @@ let g:ctrlp_mruf_max=500
 let g:ctrlp_follow_symlinks=1
 let g:ctrlp_open_new_file='e'
 let g:ctrlp_by_filename=1
+let g:ctrlp_match_current_file=1
+let g:ctrlp_prompt_mappings = {
+    \ 'ToggleType(1)' :     ['<C-f>', '<C-right>'], 
+    \ 'ToggleType(-1)' :    ['<C-b>', '<C-left>'],
+    \ 'PrtExit()' :         ['<ESC>', '<C-c>', '<C-g>', '<A-q>'],
+    \}
+let g:ctrlp_match_window='bottom,order:ttb,min:1,max:10,results:10'
+
 
 if executable('ag')
     " Use ag over grep
@@ -173,6 +190,7 @@ nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap gl :YcmCompleter GoToDeclaration<CR>
 nnoremap gi :YcmCompleter GoToInclude<CR>
 nnoremap gb <C-O>
+"nnoremap gc g;
 
 let g:ycm_always_populate_location_list=1
 highlight YcmWarningSection term=reverse ctermfg=black gui=undercurl guisp=#FFFFFF
@@ -224,20 +242,19 @@ cnoreabbrev ack Ack!
 "-------------------------------------------------------------
 " My Own help and My own plugin 
 " NOTE: helptags path/doc     doc is must
-if filereadable(expand('~/.vim/doc/myvimhelp.txt'))
-    helpt ~/.vim/doc/
-endif
-
+helpt ~/.vim/doc/
+" altkeydef
+source ~/.vim/plugin/altkeydef.vim
 " * starsearch
-if filereadable(expand('~/.vim/script/starsearch.vim'))
-    source ~/.vim/script/starsearch.vim
-endif
-" projectdir
+runtime! starsearch.vim
+" mruModifiedBuffer
+runtime! mruModifiedBuffer.vim
+" sidewindows
+runtime! sidewindows.vim
 
-if filereadable(expand('~/.vim/script/projectdir.vim'))
-    source ~/.vim/script/projectdir.vim
-    let g:projectdir_rootmarkers = g:ctrlp_root_markers
-endif
+" projectdir
+source ~/.vim/plugin/projectdir.vim
+let g:projectdir_rootmarkers = g:ctrlp_root_markers
 
 "bind <C-f> to grep word under cursor
 if exists('*projectdir#get')
@@ -246,11 +263,13 @@ if exists('*projectdir#get')
         echom a:item " " projectdir#get()
         execute 'Ack! ' . a:item . ' ' . projectdir#get()
     endfunction
+    nnoremap <silent><A-f> :call AckSearchWithProjectdir("<C-R><C-W>")<CR> 
     nnoremap <silent><C-f> :call AckSearchWithProjectdir("<C-R><C-W>")<CR> 
     command! -nargs=1 Agdir call AckSearchWithProjectdir(<f-args>)
     cnoreabbrev ag Agdir
 else
     let g:hasget = 0
+    nnoremap <silent><A-f> :Ack! "\b<C-R><C-W>\b"<CR>
     nnoremap <silent><C-f> :Ack! "\b<C-R><C-W>\b"<CR>
     cnoreabbrev ag Ack!
 endif
@@ -301,6 +320,7 @@ set mouse=
 " set mouse=a
 set pastetoggle=<F10>
 set incsearch
+set scrolloff=5
 
 "----------------------------------------------------------------------
 " Identation options 
@@ -314,7 +334,7 @@ set laststatus=2
 " zo zc za (toggle) zR/zM
 set foldenable
 set foldmethod=manual
-augroup foldmarker
+augroup foldmarker_vim
     autocmd!
     autocmd FileType vim :setlocal foldmethod=marker
 augroup END
@@ -383,6 +403,10 @@ augroup END
 " Map <C-L> (redraw screen) to also turn off search highlighting utnil the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
+nnoremap zH     zt
+nnoremap zL     zb
+nnoremap zM     z.
+
 
 " Buffer <- ->
 nnoremap <C-A-Right> :bnext<CR>
@@ -393,7 +417,7 @@ inoremap <C-A-Left> <Esc>:bprev<CR>
 
 " Backspace and Del to enter insert mode
 "nnoremap <silent><BS> i<BS>
-nnoremap <silent><Del> i<BS>
+nnoremap <silent><Del> i<Del>
 
 " Cursor Movement
 " insert mode arrow key has been defined above at YCM
@@ -425,10 +449,18 @@ nnoremap <C-Up> g;
 nnoremap <C-Down> g,
 
 " move to definition or declaration
-inoremap <silent><C-Right> <Esc>:YcmCompleter GoToDefinitionElseDeclaration<CR>
-inoremap <C-Left> <Esc><C-o>
-nnoremap <silent><C-Right> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <C-Left> <C-o>
+"inoremap <silent><C-Right> <Esc>:YcmCompleter GoToDefinitionElseDeclaration<CR>
+"inoremap <C-Left> <Esc><C-o>
+"nnoremap <silent><C-Right> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"nnoremap <C-Left> <C-o>
+nmap <silent><C-right> <Plug>mruModifiedBuffer_next
+nmap <silent><C-left> <Plug>mruModifiedBuffer_previous
+imap <silent><C-right> <ESC><Plug>mruModifiedBuffer_next
+imap <silent><C-left> <ESC><Plug>mruModifiedBuffer_previous
+nmap <silent><A-m> <Plug>mruModifiedBuffer_add
+nmap <leader>m <Plug>mruModifiedBuffer_print
+nmap <leader>r <Plug>mruModifiedBuffer_del
+
 
 " function movement
 inoremap <A-Up> <Esc>[[
@@ -439,25 +471,29 @@ nnoremap <A-Down> ]]
 " {}() movement for c language
 augroup BucketRedefine
     autocmd! 
-    autocmd FileType c  nnoremap <silent><buffer>}  :call search('}')<CR>:let @/='}'<CR>
-    autocmd FileType c  nnoremap <silent><buffer>{  :call search('{')<CR>:let @/='{'<CR>
-    autocmd FileType c  nnoremap <silent><buffer>)  :call search(')')<CR>:let @/=')'<CR>
-    autocmd FileType c  nnoremap <silent><buffer>(  :call search('(')<CR>:let @/='('<CR>
+    autocmd FileType c nnoremap <silent><buffer>}  :call search('}')<CR>:let @/='}'<CR>
+    autocmd FileType c nnoremap <silent><buffer>{  :call search('{', 'b')<CR>:let @/='{'<CR>
+    autocmd FileType c nnoremap <silent><buffer>)  :call search(')')<CR>:let @/=')'<CR>
+    autocmd FileType c nnoremap <silent><buffer>(  :call search('(', 'b')<CR>:let @/='('<CR>
+    autocmd FileType c nnoremap <silent><buffer>[<Space> {
+    autocmd FileType c nnoremap <silent><buffer>]<Space> }
 augroup END
 
 "save
 nnoremap <silent> s :w<CR>
-nnoremap <C-s> :wa<CR>
-inoremap <C-s> <C-o>:wa<CR>
+"nnoremap <C-s> :wa<CR>
+"inoremap <C-s> <C-o>:wa<CR>
 noremap <silent><C-a> :wa<CR>:make<CR>
 inoremap <silent><C-a> <Esc>:wa<CR>:make<CR>
+"cnoremap w!! w !sudo tee % >/dev/null
+cnoreabbrev sudow w !sudo tee % > /dev/null
 
 " quit
 nnoremap <silent>zz :quit<CR>
 nnoremap <silent>X :bd<CR>
 
 " paste
-inoremap <C-v> <ESC>"0gp
+inoremap <C-v> <ESC>"0gP
 nnoremap <C-v> "0gP
 vnoremap <C-v> <ESC>"0gP
 cnoremap <C-v> <C-r>"
@@ -468,10 +504,11 @@ vnoremap <C-c> ygv<ESC>
 nnoremap Y y$
 vnoremap gy :w! ~/.vimclipboard<CR>
 nnoremap gy :.w! ~/.vimclipboard<CR>
-nnoremap gp :r ~/.vimclipboard<CR>
+nnoremap gp :set paste<CR>:r ~/.vimclipboard<CR>:set nopaste<CR>
 
 
 " window toggle
+nnoremap <A-w> <C-w>w
 nnoremap <C-x> <C-w>w
 augroup WindowToggle
     autocmd!
@@ -504,10 +541,16 @@ nnoremap <silent><Leader>8  :8b<CR>
 nnoremap <silent><Leader>9  :9b<CR>
 nnoremap <silent><Leader>0  :10b<CR>
 
+" q: used to be open command line history
+" but it's annoyed, when I try to enter ':q' 
+map q: <NOP>
 
 "----------------------------------------------------------------------
 " map for programming development shortcut
 nnoremap <silent>gh :A<CR>
+
+nmap <silent><A-q>  <Plug>sidewindows#alt_q
+imap <silent><A-q>  <Plug>sidewindows#alt_q
 
 "----------------------------------------------------------------------
 " q mapping for close quickfix, location and help window
@@ -515,13 +558,11 @@ nnoremap <silent>gh :A<CR>
 augroup QuickFix_KeyMapping
     autocmd!
     autocmd FileType help nnoremap <buffer>q :q<CR>
-    autocmd FileType help nnoremap <buffer><ESC> :q<CR>
     autocmd CmdWinEnter * nnoremap <buffer>q :q<CR>
     autocmd CmdWinEnter * nnoremap <buffer><ESC> :q<CR>
-    autocmd FileType quickfix nnoremap <buffer>q :call QuickfixCommand('q', 1)
-    autocmd FileType quickfix nnoremap <buffer><ESC> :call QuickfixCommand("\<ESC>", 1)
-    autocmd FileType quickfix nnoremap <buffer><Up> :call QuickfixCommand('"\<Up>"', 1)
-    autocmd FileType quickfix nnoremap <buffer><Down> :call QuickfixCommand("\<Down>" 1)
+    autocmd FileType quickfix nnoremap <buffer>q :call QuickfixCommand('x', 1)<CR>
+    autocmd FileType quickfix nnoremap <buffer><Up> :call QuickfixCommand('k', 1)<CR>
+    autocmd FileType quickfix nnoremap <buffer><Down> :call QuickfixCommand('j', 1)<CR>
     autocmd FileType quickfix nnoremap <buffer><S-Up> k
     autocmd FileType quickfix nnoremap <buffer><S-Down> j
     autocmd FileType quickfix nnoremap <buffer><S-Left> h
@@ -530,39 +571,47 @@ augroup QuickFix_KeyMapping
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost    l* nested lwindow
     " Quickfix up / down 
-    nnoremap <C-A-Down> :call QuickfixCommand("\<Down>", 0)
-    nnoremap <C-A-Up> :call QuickfixCommand("\<Up>", 0)
-    inoremap <C-A-Down> <Esc>:call QuickfixCommand("\<Down>", 0)
-    inoremap <C-A-Up> <Esc>:call QuickfixCommand("\<Up>", 0)
+    nnoremap <C-A-Down> :call QuickfixCommand('j', 0)<CR>
+    nnoremap <C-A-Up> :call QuickfixCommand('k', 0)<CR>
+    inoremap <C-A-Down> <Esc>:call QuickfixCommand('j', 0)<CR>
+    inoremap <C-A-Up> <Esc>:call QuickfixCommand('k', 0)<CR>
 
     function! QuickfixCommand(key, switchwin)
-        if empty(getqflist())
-            if a:key == 'q' || a:key == "\<ESC>"
-                execute 'lcl'
-            elseif a:key == "\<Up>"
-                execute 'lp'
-                if a:switchwin | execute "normal! \<C-w>p" | endif
-            elseif a:key == "\<Down>"
-                execute 'ln'
-                if a:switchwin | execute "normal! \<C-w>p" | endif
+        try 
+            if !empty(getqflist())
+                if a:key == 'x' 
+                    execute 'cclose'
+                elseif a:key == 'k'
+                    execute 'cprev'
+                    if a:switchwin | execute "normal! \<C-w>p" | endif
+                elseif a:key == 'j'
+                    execute 'cnext'
+                    if a:switchwin | execute "normal! \<C-w>p" | endif
+                else
+                    execute "normal! a:key"
+                endif
+            elseif !empty(getloclist(winnr()))
+                if a:key == 'x' 
+                    execute 'lclose'
+                elseif a:key == 'k' 
+                    execute 'lprev'
+                    if a:switchwin | execute "normal! \<C-w>p" | endif
+                elseif a:key == 'j'
+                    execute 'lnext'
+                    if a:switchwin | execute "normal! \<C-w>p" | endif
+                else
+                    execute "normal! a:key"
+                endif
             else
-                execute a:key
+                echoerr "No items in location or quickfix list"
             endif
-        else
-            if a:key == 'q' || a:key == "\<ESC>"
-                execute 'ccl'
-            elseif a:key == "\<Up>"
-                execute 'cp'
-                if a:switchwin | execute "normal! \<C-w>p" | endif
-            elseif a:key == "\<Down>"
-                execute 'cn'
-                if a:switchwin | execute "normal! \<C-w>p" | endif
-            else
-                execute a:key
-            endif
-        endif
+        catch /.*/
+            echo v:exception
+        endtry
     endfunction 
 augroup End
+
+
 " }}} End of Key Mappings
 
 " last line ----------

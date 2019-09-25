@@ -3,28 +3,52 @@
 
 Jedy's cheat sheet of Vim stuff
 ==========================================================================
-Common                                              *my-common*
+Cheat sheet                                         *my-cheat*
     - zz        - save and quit
     - s         - save current buffer
     - X         - == :bd<CR>
     - <C-a>     - save all buffers and make them
-    - :A        - switch betwen .c and .h
+    - gh        - == :A<CR> switch between .c and .h
+    - gf        - load file under cursor filename
     - &         - repeat last :s command
     - <C-p>     - Ctrlp open file by fuzzy input
-    - \F        - open recent file on sub list
+    - <A-p>     - open recent file on sub list
     - \n        - toggle normal mode relative line number
     - \b,\f,\g  - go back / forward / last-used buffer
     - \1 ~ \0   - go to buffer 1, 2, ~ , 10 etc
-    - <C-l>     - == :nohl<CR>
+    - <C-l>     - redraw screen and set no highlight
     - <C-j>     - expand snippet
-    - gf        - load file under cursor filename
     - <C-e>     - escape from pop menu
     - <S-arrow> - insert mode movement
+    - <F10>     - toggle paste
+    - <A-w>     - toggle window
+    - <A-q>     - Close quickfix and location window and reset quickfix list
+    - <A-f>     - Ack search current word
+    - <A-l>     - Tagbar Toggle
+    - <C-f>     - == <A-f>
+    - :e!       - reload the current file and discrad modification
+    - :ls+      - show only modified buffers
+    - :saveas   - rename current buffer 
 
-Insert Command Mode                                 *my-inscomm*
+Help
+    - :h eval       - vimscript expression reference manual 
+    - :h usr_toc    - table of contents user manual 
+    - :h usr_41     - Write a vim scrip
+
+g starting command                                  *my-g-starting*
+    - gh        - == :A<CR> switch between .c and .h
+    - gp        - paste from ~/.vimclipboard file
+    - gy        - yank to ~/.vimclipboard file
+    - gd        - YCM GoToDefinitionElseDeclaration
+    - gl        - YCM GoToDeclaration
+    - gi        - YCM GoToInclude
+    - gc,gcu,gcc    - Commentary
+
+Insert Command Mode                                 *my-insert_and_command*
     - <C-r>x    - insert register x
     - <C-u>     - remove all characters before cursor
     - <C-w>     - remove word before cursor
+    - <C-f>     - On comamnd mode is same as :history, On insert mode ack current word
 
 Movement                                            *my-movement*
     - z.        - recenter cursor line
@@ -34,9 +58,9 @@ Movement                                            *my-movement*
     - [[        - previous function
     - %         - move to associated (), [], {}
     - (,),{,}   - previous '(', '{' or next ')', '}'
-    - gd        - goto variable defination else declaration
-    - gl        - goto variable declaration
-    - gi        - goto include
+    - gd        - goto variable defination else declaration {YCM}
+    - gl        - goto variable declaration {YCM}
+    - gi        - goto include {YCM}
     - gb        - == <C-o> 
     - G         - last line
     - gg        - the first line
@@ -45,6 +69,8 @@ Movement                                            *my-movement*
     - w,b,e     - word, back, end
     - W,B,E     - whole Word, Back, End
     - 0, $      - start / end of current line
+    - [<Space>  - previous blank line
+    - ]<Space>  - next blank line
 
 
 Editing                                             *my-editing*
@@ -60,6 +86,12 @@ Search                                              *my-search*
     - <A-f>     - ack current word under cursor
     - g*        - search next variable
     - g#        - search previous variable
+
+Substitute                                          *my-substitute*
+    - :[range]s/{pattern}/{sring}/[gceril] [count]
+    - :%sgc
+    - :%s/a/b/gc
+    - :&&       - repeat replace command with same flag
     
 Copy & Paste                                        *my-copypaste*
     - p         - paste before cursor
@@ -74,36 +106,77 @@ Registers                                           *my-registers*
     - :reg      - show all register list
     - :reg a b  - show a, b register
     - ".        - last inserted text
-    - "%        - current file path
     - <C-r>x    - INSERT MODE, paste by x register
     - "xy       - yank data to x register
+    - "%        - current file path
+    - ":        - the most recently executed command
+    - "%        - current file path
+
 
 Tags                                                *my-tags*
     - :tags     - list all definitions
-   s- c-]       - jump to definition
+    - c-]       - jump to definition
     - c-t       - jump to back from definition
 
 Jump List                                           *my-jumplist*
     - :ju[mps]  - show jump list
     - <C-o>     - previous jump
     - <C-i>     - next jump
+    - H,M,L     - jump to Higher, Middle, Lower position of screen
+    - 15G       - jump to line number 15
+    - 7j        - jump to next 7 line
+    - 3k        - jump to previous 3 line
+    - C-]       - jump to tag defintion
+    - C-t       - jump older tag
+
+Marks                                                *my-marks*
+    - mK        - mark 'K' as gloal marker
+    - mk        - makr 'k' as local marker
+    - '],`]     - next marker
+    - 'k        - jump to the k marker at start of the line
+    - `k        - jump to the k marker at last cursor position
+    - ''        - jump to last jump at start of the line
+    - ``        - jump to last jump at last cursor position
 
 Change List                                         *my-changelist*
     - :changes  - show change list
     - g;        - jump to location of older change
     - g,        - jump to location of newer chage
-    - ``        - jump back
-    - `.        - jump last change
+    - `.        - jump to last change
+
+Buffer list
+    - :ls       - show buffer list
+    - :ls+      - show modified buffer list
+    - :bN       - disply (unhide) buffer number N
+    - \b        - back to previous buffer
+    - \f        - fordward to next buffer
+    - \1~9,\0   - display buffer number 1 ~ 9, and 10
+    - \g        - goto last 
+    - <C-A-left>  - previous buffer
+    - <C-A-right> - next buffer
 
 Quickfix list                                       *my-quickfixlist*
     - cw        - show quick fix window
     - <Up>      - next fix
     - <Down>    - previous fix
     - q         - close quick fix window
+    - <C-A-Up>  - previous error
+    - <C-A-Down>- next error
+
+Folding                                             *my-folding*
+    - zf3j      - fold next 3 lines
+    - zfa}      - fold { }
+    - zf'a      - fold from current line to mark 'a
 
 YouCompleteMe                                       *my-ycm*
     - :YcmDebugInfo
     - .include_list     - YCM look at .include_list at current dir, then parent dir util it find a one.
 
 
+Ctrlp Window
+    - <C-p>     - invoke CtrlP in normal mode
+    - <A-p>     - invoke CtrlP with MRU files search window in normal mode
+    - \p        - == <A-p>
+    - <C-left>  - switch CtrlP mode amoung files, buffers, and MRU files
+    - <C-right> - swithc CtrlP mode amoung files, buffers, and MRU files
 
