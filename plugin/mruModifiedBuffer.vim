@@ -122,6 +122,7 @@ function! mruModifiedBuffer#navigate(key, abuf)
     endif
 
     let g:lastNavigateReltime = l:now
+    let l:msg = ''
 
     if g:mruModifiedBuffer#idx >= 0
         let g:mruModifiedBuffer#idx = -1
