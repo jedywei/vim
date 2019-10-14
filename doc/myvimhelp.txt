@@ -23,9 +23,10 @@ Cheat sheet                                         *my-cheat*
     - <F10>     - toggle paste
     - <A-w>     - toggle window
     - <A-q>     - Close quickfix and location window and reset quickfix list
-    - <A-f>     - Ack search current word
+    - <A-f>     - Ack search current word start from parent dir
+    - <C-f>     - Ack search current word start from current dir
+    - <C-A-f>   - Ack search current word start from project dir
     - <A-l>     - Tagbar Toggle
-    - <C-f>     - == <A-f>
     - :e!       - reload the current file and discrad modification
     - :ls+      - show only modified buffers
     - :saveas   - rename current buffer 

@@ -51,6 +51,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'romainl/vim-qf'
 Plugin 'chrisbra/Recover.vim'
+Plugin 'Raimondi/delimitMate'
 "Plugin 'tommcdo/vim-lion'
 "Plugin 'kana/vim-textobj-user'
 "Plugin 'Julian/vim-textobj-variable-segment'
@@ -135,8 +136,8 @@ let g:ctrlp_open_new_file='e'
 let g:ctrlp_by_filename=1
 let g:ctrlp_match_current_file=1
 let g:ctrlp_prompt_mappings = {
-    \ 'ToggleType(1)' :     ['<C-f>', '<C-right>'], 
-    \ 'ToggleType(-1)' :    ['<C-b>', '<C-left>'],
+    \ 'ToggleType(1)' :     ['<C-right>'], 
+    \ 'ToggleType(-1)' :    ['<C-left>'],
     \ 'PrtExit()' :         ['<ESC>', '<C-c>', '<C-g>', '<A-q>'],
     \}
 let g:ctrlp_match_window='bottom,order:ttb,min:1,max:10,results:10'
@@ -175,8 +176,9 @@ let g:ycm_warning_symbol='>*'
 "let g:ycm_enable_diagnostic_highlighting=0
 "let g:ycm_key_list_previous_completion = ['<S-TAB>']
 "let g:ycm_key_list_select_completion = ['<TAB>']
+"remove <S-TAB> from list_stop_completion for delimitMate plugin
 let g:ycm_key_list_stop_completion = ['<C-y>']
-let g:ycm_key_list_previous_completion=['<C-p>', '<S-TAB>']
+let g:ycm_key_list_previous_completion=['<C-p>']
 let g:ycm_key_list_select_completion=['<C-n>', '<TAB>']
 "inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
 " Arrow Key mapping for insert mode
@@ -263,10 +265,12 @@ if exists('*projectdir#get')
         echom a:item " " projectdir#get()
         execute 'Ack! ' . a:item . ' ' . projectdir#get()
     endfunction
-    nnoremap <silent><A-f> :call AckSearchWithProjectdir("<C-R><C-W>")<CR> 
-    nnoremap <silent><C-f> :call AckSearchWithProjectdir("<C-R><C-W>")<CR> 
+    nnoremap <silent><C-A-f> :call AckSearchWithProjectdir("<C-R><C-W>")<CR>
+    nnoremap <silent><A-f> :Ack! "\b<C-R><C-W>\b" .. <CR>
+    nnoremap <silent><C-f> :Ack! "\b<C-R><C-W>\b"<CR>
     command! -nargs=1 Agdir call AckSearchWithProjectdir(<f-args>)
-    cnoreabbrev ag Agdir
+    cnoreabbrev agdir Agdir
+    cnoreabbrev ag Ack! 
 else
     let g:hasget = 0
     nnoremap <silent><A-f> :Ack! "\b<C-R><C-W>\b"<CR>
@@ -509,6 +513,7 @@ nnoremap gp :set paste<CR>:r ~/.vimclipboard<CR>:set nopaste<CR>
 
 " window toggle
 nnoremap <A-w> <C-w>w
+inoremap <A-w> <ESC><C-w>w
 nnoremap <C-x> <C-w>w
 augroup WindowToggle
     autocmd!

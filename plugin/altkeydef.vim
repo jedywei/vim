@@ -9,6 +9,8 @@ endif
 
 let g:loaded_altkeydef = 1
 
+execute "set <C-A-f>={ESC}[{C-f}"
+
 execute "set <A-1>=\e1"
 execute "set <A-2>=\e2"
 execute "set <A-3>=\e3"
