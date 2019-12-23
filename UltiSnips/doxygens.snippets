@@ -4,10 +4,31 @@ priority -50
 
 snippet dxfile	"doxygen-file" b
 /*!
- * @brief ${1:Brief_file_summary}
- * @file ${2:`!p snip.rv=fn`} 
+ * @file ${3:`!p snip.rv=fn`} 
+ * @brief ${2:Brief_file_summary}
+ * @author Jedy Wei
+ * @ingroup ${1:GROUP_NAME}
+ * DESCRIPTION_HERE
  */
+
+ /*!
+  * @defgroup $1 BREIF
+  * DESCRIPTON_HERE
+  * @{
+  */
+${0}
+/*! @} defgroup $1 */ 
 endsnippet
+
+snippet dxname	"doxygen-name" b
+/*!
+ * @name BRIEF
+ * DESCRIPTION_HERE
+ * @{
+ */ 
+ ${0}
+/*! @} name */
+endsnippet 
 
 snippet dxfunc	"doxgen-func" b
 /*!
