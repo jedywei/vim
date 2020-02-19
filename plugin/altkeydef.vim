@@ -52,8 +52,8 @@ execute "set <A-z>=\ez"
 execute "set <A-.>=\e."
 execute "set <A-,>=\e,"
 "execute "set <A-[>=\e["             "not working well, that will enter Replace mode
-execute "set <A-]>=\e]"
+"execute "set <A-]>=\e]"             "not working well, that will cause some problems
 execute "set <A-\\>=\e\\"
 
-" end of altkeydef.vim
+"end of altkeydef.vim
  
