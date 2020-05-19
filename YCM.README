@@ -1,7 +1,27 @@
 README for YouCompleteMe
 -------------------------
 A. VIM8
-install vim8 
+
+1. Install phyton3 before vim 8.x
+2. Configure vim 8.0 with only python3
+3. git install vbundle
+4. On home dir, ln -s .vim/.vimrc .
+5. In vim, :PluginInstall
+6. Install YouCompleteMe language support
+
+
+0. check python2 and python3 version by
+$ python --version
+$ python3 --version 
+
+
+1. Install python3 and python2.7 devel before vim 8.x
+$ sudo yum install python3
+$ sudo yum install python3-devel
+$ sudo yum instlal python27-python-devel
+
+
+2. install vim8 
 Install the necessary package
 $ sudo yum install gcc-c++ ncurses-devel python-devel python3-devel
 Get the source code of Vim.
@@ -9,14 +29,30 @@ $ git clone https://github.com/vim/vim.git
 Go to build directory.
 cd vim/src && git checkout v8.0.1522
 Configure it !
-$./configure --disable-nls --enable-cscope --enable-gui=no --enable-multibyte --enable-rubyinterp --with-features=huge --with-tlib=ncurses --without-x --with-python3-config-dir=$(python3-config --configdir) --enable-python3interp=yes
+$./configure --disable-nls --enable-cscope --enable-gui=no --enable-multibyte --enable-rubyinterp \
+        --with-features=huge --with-tlib=ncurses --without-x \
+        --with-python-config-dir=/lib64/python2.7/config --enable-pythoninterp=yes \
+        --with-python3-config-dir=$(python3-config --configdir) --enable-python3interp=yes
+
+** The corrected python2.7 configuration directory is significant to make YCM running on CentOS 7
+** to uninstall installed vim8 by $ sudo make uninstall
+** for CentOS config vim with-python and with-python3 will not work. 
+
 Compile and install the Vim.
 $ make && sudo make install
 
-B. YouCompleteMe
+3. Install vbundle, On .vim directory
+$ ./gitvundle.sh
+
+4. link .vimrc, on home dir
+$ ln -s .vim/.vimrc .
+
+5. In vim, command ":PluginInstall"
+
+6. Install YouCompleteMe lanage support
 
 $ cd .vim/bundle/YouCompleteMe
-$ python3 ./install.py --clang-completer
+$ python ./install.py --clang-completer
 
 Edit .vimrc
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
@@ -26,4 +62,19 @@ Restart vim
 .ycm_extra_conf_jdevlieghere.py 
 allow using .include_list to add extra header file directory include path
 refer <mediaflow>/.include_list to get more information
+
+7. YCM Server shutdown issue
+GLIBCXX_3.4.20 not found issue
+replace /usr/lib64/libstdc++.so.6 by newer one
+
+
+8. YCM debugging
+
+Output of vim --version 
+
+$vim --version
+
+Output of YcmDebugInfo
+:YcmDebugInfo
+
 
