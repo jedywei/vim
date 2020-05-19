@@ -496,11 +496,13 @@ cnoreabbrev sudow w !sudo tee % > /dev/null
 nnoremap <silent>zz :quit<CR>
 nnoremap <silent>X :bd<CR>
 
+" <C-V> to column mode selection
+ 
 " paste
-inoremap <C-v> <ESC>"0gP
-nnoremap <C-v> "0gP
-vnoremap <C-v> <ESC>"0gP
-cnoremap <C-v> <C-r>"
+" inoremap <C-v> <ESC>"0gP
+" nnoremap <C-v> "0gP
+" vnoremap <C-v> <ESC>"0gP
+" cnoremap <C-v> <C-r>"
 " copy
 inoremap <C-c> <ESC>"0yiw
 nnoremap <C-c>   "0yiw
