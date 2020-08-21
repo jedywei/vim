@@ -4,6 +4,7 @@
 Jedy's cheat sheet of Vim stuff
 ==========================================================================
 Cheat sheet                                         *my-cheat*
+    - g; g,     - jump to last changes (older, newer)
     - zz        - save and quit
     - s         - save current buffer
     - X         - == :bd<CR>
@@ -23,13 +24,21 @@ Cheat sheet                                         *my-cheat*
     - <F10>     - toggle paste
     - <A-w>     - toggle window
     - <A-q>     - Close quickfix and location window and reset quickfix list
-    - <A-f>     - Ack search current word start from parent dir
-    - <C-f>     - Ack search current word start from current dir
-    - <C-A-f>   - Ack search current word start from project dir
     - <A-l>     - Tagbar Toggle
     - :e!       - reload the current file and discrad modification
     - :ls+      - show only modified buffers
     - :saveas   - rename current buffer 
+    - :retab    - convert tab to space on the current buffer
+ag
+    - <A-f>     - Ack search current word start from parent dir
+    - <C-f>     - Ack search current word start from current dir
+    - <C-A-f>   - Ack search current word start from project dir
+    - ~/.vim/doc/myvimhelp.txt 
+
+Auto-pairs
+    - {<A-e>    - Fast Warp  {}
+    - <A-p>     - Toggle Auto-pairs disable/enable
+    - <A-n>     - Jump to next closed pair 
 
 Help
     - :h eval       - vimscript expression reference manual 
@@ -142,7 +151,7 @@ Marks                                                *my-marks*
 Change List                                         *my-changelist*
     - :changes  - show change list
     - g;        - jump to location of older change
-    - g,        - jump to location of newer chage
+    - g,        - jump to location of newer change
     - `.        - jump to last change
 
 Buffer list
