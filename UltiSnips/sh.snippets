@@ -1,6 +1,28 @@
 #
 # sh snippet extension
 
+snippet defshfile  "/* ... ACL License ... */" b
+#!/bin/bash 
+#  @file	${2:`!p snip.rv=fn`} 
+#  @brief	${1:// Brief}   
+#
+#  Copyright (C) 2019 Advantech Co., Ltd. - http://www.advantech.com.tw/   
+#   All Rights Reserved. 
+#
+#  NOTICE:  All information contained herein is, and remains the property of 
+#    Advantech Co., Ltd. and its suppliers, if any.  The intellectual and 
+#    technical concepts contained herein are proprietary to Advantech Co., Ltd.
+#    and its suppliers and may be covered by U.S. and Foreign Patents,
+#    patents in process, and are protected by trade secret or copyright law.
+#    Dissemination of this information or reproduction of this material
+#    is strictly forbidden unless prior written permission is obtained
+#    from Advantech Co., Ltd.
+#
+#  @date   `date +%Y/%m/%d`    jedy.wei     New file  
+#
+ ${0}
+endsnippet
+
 snippet find_top "function find_top {" b
 function find_top {
     if [[ -f $1/scripts/auto_rules.mk ]]; then

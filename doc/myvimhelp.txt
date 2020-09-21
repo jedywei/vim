@@ -34,6 +34,7 @@ ag
     - <C-f>     - Ack search current word start from current dir
     - <C-A-f>   - Ack search current word start from project dir
     - ~/.vim/doc/myvimhelp.txt 
+    - :set num  - display number or hide number by :set nonum (should \n to be absolution number)
 
 Auto-pairs
     - {<A-e>    - Fast Warp  {}
