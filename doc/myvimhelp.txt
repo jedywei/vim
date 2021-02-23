@@ -108,10 +108,12 @@ Copy & Paste                                        *my-copypaste*
     - p         - paste before cursor
     - P         - paste after cursor
     - gP        - paste after cursor and follow pasted text
-    - <C-v>     - windows like paste from "0 register
     - Y         - y$
     - gy        - copy to clipboard
     - gp        - paste from clipboard
+    - viw"0p    - paste and replace a word
+    - "0p       - paste yanked buffer
+
 
 Registers                                           *my-registers*
     - :reg      - show all register list
@@ -190,4 +192,18 @@ Ctrlp Window
     - \p        - == <A-p>
     - <C-left>  - switch CtrlP mode amoung files, buffers, and MRU files
     - <C-right> - swithc CtrlP mode amoung files, buffers, and MRU files
+
+
+Keymap
+    - N / V/ O / I /C   - Normal / Visual / Operator Pending / Insert Only / Comamnd Line
+    - :map,  :noremap   - N,V,O
+    - :nmap, :nnoremap  - N
+    - :vmap, :vnoremap  - V
+    - :omap, :onoremap  - O
+    - :map!, :noremap!  - I,C
+    - :imap, :inoremap  - I
+    - :cmap, :cnoremap  - C
+    - :unmap            - unmap, nunmap, vunmap, onumap, unmap!, iunmap, cunmap
+    - :map              - list all key defination
+    - :h key-notation   - the name for keys used in vim 
 

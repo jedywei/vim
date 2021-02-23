@@ -239,7 +239,6 @@ cnoreabbrev ack Ack!
 
 "let g:ackpreview=1
 
-
 " }}} End of Plugin Setting
 
 "-------------------------------------------------------------
@@ -251,7 +250,7 @@ source ~/.vim/plugin/altkeydef.vim
 " * starsearch
 runtime! starsearch.vim
 " mruModifiedBuffer
-runtime! mruModifiedBuffer.vim
+"runtime! mruModifiedBuffer.vim
 " sidewindows
 runtime! sidewindows.vim
 
@@ -448,10 +447,14 @@ nnoremap <A-Left> B
 nnoremap <A-Right> W
 
 " move between last editor
-inoremap <C-Up> <Esc>g;
-inoremap <C-Down> <Esc>g,
-nnoremap <C-Up> g;
-nnoremap <C-Down> g,
+" inoremap <C-Up> <Esc>g;
+" inoremap <C-Down> <Esc>g,
+" nnoremap <C-Up> g;
+" nnoremap <C-Down> g,
+inoremap <C-Up> <PageUp>
+inoremap <C-Down> <PageDown>
+nnoremap <C-Up> <PageUp>
+nnoremap <C-Down> <PageDown>
 
 " move to definition or declaration
 "inoremap <silent><C-Right> <Esc>:YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -486,8 +489,8 @@ augroup END
 
 "save
 nnoremap <silent> s :w<CR>
-"nnoremap <C-s> :wa<CR>
-"inoremap <C-s> <C-o>:wa<CR>
+noremap  <C-s> :wa<CR>
+noremap! <C-s> <C-o>:wa<CR>
 noremap <silent><C-a> :wa<CR>:make<CR>
 inoremap <silent><C-a> <Esc>:wa<CR>:make<CR>
 "cnoremap w!! w !sudo tee % >/dev/null
@@ -505,6 +508,8 @@ nnoremap <silent>X :bd<CR>
 " vnoremap <C-v> <ESC>"0gP
 " cnoremap <C-v> <C-r>"
 " copy
+nnoremap <leader>pp "0p
+" nnoremap <leader>ss viw"0p
 inoremap <C-c> <ESC>"0yiw
 nnoremap <C-c>   "0yiw
 vnoremap <C-c> ygv<ESC>
@@ -512,7 +517,6 @@ nnoremap Y y$
 vnoremap gy :w! ~/.vimclipboard<CR>
 nnoremap gy :.w! ~/.vimclipboard<CR>
 nnoremap gp :set paste<CR>:r ~/.vimclipboard<CR>:set nopaste<CR>
-
 
 " window toggle
 nnoremap <A-w> <C-w>w
@@ -552,6 +556,17 @@ nnoremap <silent><Leader>0  :10b<CR>
 " q: used to be open command line history
 " but it's annoyed, when I try to enter ':q' 
 map q: <NOP>
+
+" auto-pairs is good, but it's annoyed when I want to insert just single quote
+" inoremap ""  "
+" inoremap ''  '
+" inoremap }}  }
+" inoremap ))  )
+" inoremap ]]  ]
+" inoremap {{  {
+" inoremap ((  (
+" inoremap [[  [
+
 
 "----------------------------------------------------------------------
 " map for programming development shortcut
