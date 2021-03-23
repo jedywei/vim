@@ -40,7 +40,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'ervandew/supertab'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -51,7 +51,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'romainl/vim-qf'
 Plugin 'chrisbra/Recover.vim'
-Plugin 'jiangmiao/auto-pairs'
+"Plugin 'jiangmiao/auto-pairs'
 "Plugin 'Raimondi/delimitMate'
 "Plugin 'tommcdo/vim-lion'
 "Plugin 'kana/vim-textobj-user'
@@ -447,14 +447,14 @@ nnoremap <A-Left> B
 nnoremap <A-Right> W
 
 " move between last editor
-" inoremap <C-Up> <Esc>g;
-" inoremap <C-Down> <Esc>g,
-" nnoremap <C-Up> g;
-" nnoremap <C-Down> g,
-inoremap <C-Up> <PageUp>
-inoremap <C-Down> <PageDown>
-nnoremap <C-Up> <PageUp>
-nnoremap <C-Down> <PageDown>
+inoremap <C-Up> <Esc>g;
+inoremap <C-Down> <Esc>g,
+nnoremap <C-Up> g;
+nnoremap <C-Down> g,
+" inoremap <C-Up> <PageUp>
+" inoremap <C-Down> <PageDown>
+" nnoremap <C-Up> <PageUp>
+" nnoremap <C-Down> <PageDown>
 
 " move to definition or declaration
 "inoremap <silent><C-Right> <Esc>:YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -558,14 +558,8 @@ nnoremap <silent><Leader>0  :10b<CR>
 map q: <NOP>
 
 " auto-pairs is good, but it's annoyed when I want to insert just single quote
-" inoremap ""  "
-" inoremap ''  '
-" inoremap }}  }
-" inoremap ))  )
-" inoremap ]]  ]
-" inoremap {{  {
-" inoremap ((  (
-" inoremap [[  [
+
+let g:AutoParisFlyMode = 0
 
 
 "----------------------------------------------------------------------
