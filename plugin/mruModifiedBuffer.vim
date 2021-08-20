@@ -4,6 +4,9 @@
 
 "Init {{{ 1
 
+" Default disable mruModifiedBuffer.vim
+finish
+
 if exists('g:loaded_mruModifiedBuffer') && g:loaded_mruModifiedBuffer
     finish
 endif
