@@ -4,6 +4,8 @@
 
 "Init {{{ 1
 
+finish
+
 if exists('g:loaded_mruModifiedBuffer') && g:loaded_mruModifiedBuffer
     finish
 endif
