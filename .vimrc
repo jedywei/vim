@@ -334,6 +334,13 @@ set expandtab
 set laststatus=2
 
 "----------------------------------------------------------------------
+" jump to the last position when repoening a file
+
+if has ("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"----------------------------------------------------------------------
 " Folding options          
 " zo zc za (toggle) zR/zM
 set foldenable
