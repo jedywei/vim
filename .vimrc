@@ -40,7 +40,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'ervandew/supertab'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -576,6 +576,9 @@ nnoremap <silent>gh :A<CR>
 nmap <silent><A-q>  <Plug>sidewindows#alt_q
 imap <silent><A-q>  <Plug>sidewindows#alt_q
 
+"----------------------------------------------------------------------
+" 'Q' is used to enter EX mode, here disable it
+map Q <Nop>
 "----------------------------------------------------------------------
 " q mapping for close quickfix, location and help window
 
