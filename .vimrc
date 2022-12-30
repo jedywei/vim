@@ -570,6 +570,11 @@ let g:AutoParisFlyMode = 0
 
 
 "----------------------------------------------------------------------
+" map toggle line number
+nmap <silent><C-n> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
+
+
+"----------------------------------------------------------------------
 " map for programming development shortcut
 nnoremap <silent>gh :A<CR>
 
