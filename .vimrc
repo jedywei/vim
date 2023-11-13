@@ -451,6 +451,7 @@ inoremap <C-Up> <Esc>g;
 inoremap <C-Down> <Esc>g,
 nnoremap <C-Up> g;
 nnoremap <C-Down> g,
+nnoremap g. 100g, `.
 " inoremap <C-Up> <PageUp>
 " inoremap <C-Down> <PageDown>
 " nnoremap <C-Up> <PageUp>
@@ -560,6 +561,10 @@ map q: <NOP>
 " auto-pairs is good, but it's annoyed when I want to insert just single quote
 
 let g:AutoParisFlyMode = 0
+
+"----------------------------------------------------------------------
+" map toggle line number
+nmap <silent><C-n> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
 
 "----------------------------------------------------------------------
