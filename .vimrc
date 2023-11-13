@@ -40,7 +40,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'ervandew/supertab'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -334,6 +334,13 @@ set expandtab
 set laststatus=2
 
 "----------------------------------------------------------------------
+" jump to the last position when repoening a file
+
+if has ("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"----------------------------------------------------------------------
 " Folding options          
 " zo zc za (toggle) zR/zM
 set foldenable
@@ -568,12 +575,20 @@ nmap <silent><C-n> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
 
 "----------------------------------------------------------------------
+" map toggle line number
+nmap <silent><C-n> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
+
+
+"----------------------------------------------------------------------
 " map for programming development shortcut
 nnoremap <silent>gh :A<CR>
 
 nmap <silent><A-q>  <Plug>sidewindows#alt_q
 imap <silent><A-q>  <Plug>sidewindows#alt_q
 
+"----------------------------------------------------------------------
+" 'Q' is used to enter EX mode, here disable it
+map Q <Nop>
 "----------------------------------------------------------------------
 " q mapping for close quickfix, location and help window
 
