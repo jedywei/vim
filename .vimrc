@@ -183,10 +183,10 @@ let g:ycm_key_list_previous_completion=['<C-p>']
 let g:ycm_key_list_select_completion=['<C-n>', '<TAB>']
 "inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
 " Arrow Key mapping for insert mode
-inoremap <expr><Up> pumvisible() ? "\<Up>" : "\<Esc>gk"
-inoremap <expr><Down> pumvisible() ? "\<Down>" : "\<Esc>gj"
-inoremap <expr><Left> pumvisible() ? "\<C-e>\<Esc>a" : "\<Esc>\<Left>"
-inoremap <expr><Right> pumvisible() ? "\<C-y>" : "\<Esc>\<Right>"
+" inoremap <expr><Up> pumvisible() ? "\<Up>" : "\<Esc>gk"
+" inoremap <expr><Down> pumvisible() ? "\<Down>" : "\<Esc>gj"
+" inoremap <expr><Left> pumvisible() ? "\<C-e>\<Esc>a" : "\<Esc>\<Left>"
+" inoremap <expr><Right> pumvisible() ? "\<C-y>" : "\<Esc>\<Right>"
 set completeopt=longest,menu
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "nnoremap gf :YcmCompleter GoToDefinition<CR>
@@ -389,23 +389,23 @@ augroup clike_commentstring
 augroup END
 
 " Set auto switch linenumber
-set number relativenumber
-let g:always_setnorelativenumber=0
-augroup numbertoggle
-    function! s:SetLineNumber()
-        if (g:always_setnorelativenumber)
-            set norelativenumber
-        else
-            set relativenumber
-        endif
-    endfunction 
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * call <SID>SetLineNumber()
-    autocmd BufLeave,FocusLost,InsertEnter * setlocal norelativenumber
-    autocmd InsertEnter * setlocal cursorline
-    autocmd InsertLeave * setlocal nocursorline
-    nnoremap <silent><Leader>n :let g:always_setnorelativenumber=!g:always_setnorelativenumber<CR>:call <SID>SetLineNumber()<CR>
-augroup END
+" set number relativenumber
+" let g:always_setnorelativenumber=0
+" augroup numbertoggle
+"     function! s:SetLineNumber()
+"         if (g:always_setnorelativenumber)
+"             set norelativenumber
+"         else
+"             set relativenumber
+"         endif
+"     endfunction 
+"     autocmd!
+"     autocmd BufEnter,FocusGained,InsertLeave * call <SID>SetLineNumber()
+"     autocmd BufLeave,FocusLost,InsertEnter * setlocal norelativenumber
+"     autocmd InsertEnter * setlocal cursorline
+"     autocmd InsertLeave * setlocal nocursorline
+"     nnoremap <silent><Leader>n :let g:always_setnorelativenumber=!g:always_setnorelativenumber<CR>:call <SID>SetLineNumber()<CR>
+" augroup END
 
 " }}} End of Option Settings
 
@@ -417,6 +417,14 @@ nnoremap <C-L> :nohl<CR><C-L>
 nnoremap zH     zt
 nnoremap zL     zb
 nnoremap zM     z.
+
+" dd, dw, D
+nnoremap dd     "_dd
+nnoremap dl     "_dl
+nnoremap D      "_D
+nnoremap x      "_x
+vnoremap x      "_d
+noremap X       "_X
 
 
 " Buffer <- ->
@@ -484,6 +492,7 @@ inoremap <A-Down> <Esc>]]
 nnoremap <A-Up> [[
 nnoremap <A-Down> ]]
 
+
 " {}() movement for c language
 augroup BucketRedefine
     autocmd! 
@@ -495,8 +504,13 @@ augroup BucketRedefine
     autocmd FileType c nnoremap <silent><buffer>]<Space> }
 augroup END
 
+" insert / normal
+autocmd InsertEnter * set cursorline
+autocmd InsertLeave * set nocursorline
+hi CursorLine gui=underline cterm=underline
+
 "save
-nnoremap <silent> s :w<CR>
+"nnoremap <silent> s :w<CR>
 noremap  <C-s> :wa<CR>
 noremap! <C-s> <C-o>:wa<CR>
 noremap <silent><C-a> :wa<CR>:make<CR>
