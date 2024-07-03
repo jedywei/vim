@@ -419,12 +419,12 @@ nnoremap zL     zb
 nnoremap zM     z.
 
 " dd, dw, D
-nnoremap dd     "_dd
-nnoremap dl     "_dl
-nnoremap D      "_D
-nnoremap x      "_x
-vnoremap x      "_d
-noremap X       "_X
+" nnoremap dd     "_dd
+" nnoremap dl     "_dl
+" nnoremap D      "_D
+" nnoremap x      "_x
+" vnoremap x      "_d
+" noremap X       "_X
 
 
 " Buffer <- ->
