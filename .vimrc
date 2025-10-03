@@ -440,10 +440,10 @@ nnoremap <silent><Del> i<Del>
 
 " Cursor Movement
 " insert mode arrow key has been defined above at YCM
-"inoremap <Left> <Esc><Left>
-"inoremap <Right> <Esc><Right>
-"inoremap <Down> <Esc>gj
-"inoremap <Up> <Esc>gk
+inoremap <Left> <Esc><Left>
+inoremap <Right> <Esc><Right>
+inoremap <Down> <Esc>gj
+inoremap <Up> <Esc>gk
 inoremap <S-Left> <Left>
 inoremap <S-Right> <Right>
 inoremap <S-Up> <Up>

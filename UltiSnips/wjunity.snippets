@@ -1,13 +1,13 @@
-# Jedy Wei 2019.09.12
-# new c file
+# Jedy Wei 2025.10.3
+# new cpp file for windows CppUnitTestFramework
 priority -50
 
-snippet defjunity "/* junity template */" b
+snippet defwjunity "/* junity template */" b
 /*
  *  @file	${2:`!p snip.rv=fn`} 
  *  @brief	${1:`!p snip.rv=snip.basename`}   
  *
- *  Copyright (C) 2019 Advantech Co., Ltd. - http://www.advantech.com.tw/   
+ *  Copyright (C) 2025 Advantech Co., Ltd. - http://www.advantech.com.tw/   
  *   All Rights Reserved. 
  *
  *  NOTICE:  All information contained herein is, and remains the property of 
@@ -22,38 +22,25 @@ snippet defjunity "/* junity template */" b
  *  @date   `date +%Y/%m/%d`    jedy.wei     New file  
  *
  */
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include <pch.h>
+#include "CppUnitTest.h"
 #include "platform/jassert.h"
 
 
-JRUN_ALLTESTS(myrunall, $1)
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-int main(int argc, char *argv[])
+namespace ut_${1/^ut-//m}
 {
-    return JUnityMain(argc, argv, myrunall);
+    TEST_CLASS(win_${1/^ut-//m})
+    {
+    public:
+	TEST_CLASS_INITIALIZE(ut_setup) { }
+	TEST_CLASS_CLEANUP(ut_teardown) { }
+	TEST_METHOD(ut_basic)
+	{
+	    int rc;
+	}
+    };
 }
-
-/*---------------------------
- * test group
- *---------------------------
- */
-
-TEST_GROUP($1)
-TEST_SETUP($1)
-{
-}
-TEST_TEAR_DOWN($1)
-{
-}
-
-TEST($1, basic)
-{
-	int rc;
-	${0}
-}
-
 
 endsnippet
