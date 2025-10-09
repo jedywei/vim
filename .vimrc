@@ -183,8 +183,11 @@ let g:ycm_key_list_previous_completion=['<C-p>']
 let g:ycm_key_list_select_completion=['<C-n>', '<TAB>']
 "inoremap <expr><CR> pumvisible() ? "\<C-E>" : "\<CR>"
 " Arrow Key mapping for insert mode
-" inoremap <expr><Up> pumvisible() ? "\<Up>" : "\<Esc>gk"
-" inoremap <expr><Down> pumvisible() ? "\<Down>" : "\<Esc>gj"
+
+"inoremap <expr><Esc>gj pumvisible() ? "\<Down>" : "\<Esc>gj"
+"inoremap <expr><Esc>gk pumvisible() ? "\<Up>" : "\<Esc>gk"
+inoremap <expr><Up> pumvisible() ? "\<Up>" : "\<Esc>gk"
+inoremap <expr><Down> pumvisible() ? "\<Down>" : "\<Esc>gj"
 " inoremap <expr><Left> pumvisible() ? "\<C-e>\<Esc>a" : "\<Esc>\<Left>"
 " inoremap <expr><Right> pumvisible() ? "\<C-y>" : "\<Esc>\<Right>"
 set completeopt=longest,menu
@@ -442,8 +445,8 @@ nnoremap <silent><Del> i<Del>
 " insert mode arrow key has been defined above at YCM
 inoremap <Left> <Esc><Left>
 inoremap <Right> <Esc><Right>
-inoremap <Down> <Esc>gj
-inoremap <Up> <Esc>gk
+"inoremap <Down> <Esc>gj
+"inoremap <Up> <Esc>gk
 inoremap <S-Left> <Left>
 inoremap <S-Right> <Right>
 inoremap <S-Up> <Up>
@@ -477,13 +480,13 @@ nnoremap g. 100g, `.
 "inoremap <C-Left> <Esc><C-o>
 "nnoremap <silent><C-Right> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "nnoremap <C-Left> <C-o>
-nmap <silent><C-right> <Plug>mruModifiedBuffer_next
-nmap <silent><C-left> <Plug>mruModifiedBuffer_previous
-imap <silent><C-right> <ESC><Plug>mruModifiedBuffer_next
-imap <silent><C-left> <ESC><Plug>mruModifiedBuffer_previous
-nmap <silent><A-m> <Plug>mruModifiedBuffer_add
-nmap <leader>m <Plug>mruModifiedBuffer_print
-nmap <leader>r <Plug>mruModifiedBuffer_del
+"nmap <silent><C-right> <Plug>mruModifiedBuffer_next
+"nmap <silent><C-left> <Plug>mruModifiedBuffer_previous
+"imap <silent><C-right> <ESC><Plug>mruModifiedBuffer_next
+"imap <silent><C-left> <ESC><Plug>mruModifiedBuffer_previous
+"nmap <silent><A-m> <Plug>mruModifiedBuffer_add
+"nmap <leader>m <Plug>mruModifiedBuffer_print
+"nmap <leader>r <Plug>mruModifiedBuffer_del
 
 
 " function movement
@@ -508,6 +511,10 @@ augroup END
 autocmd InsertEnter * set cursorline
 autocmd InsertLeave * set nocursorline
 hi CursorLine gui=underline cterm=underline
+
+"Undo
+nnoremap U u
+nnoremap u <Nop> 
 
 "save
 "nnoremap <silent> s :w<CR>
@@ -585,14 +592,10 @@ let g:AutoParisFlyMode = 0
 
 "----------------------------------------------------------------------
 " map toggle line number
-nmap <silent><C-n> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
+"nmap <silent><C-n> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
 
 "----------------------------------------------------------------------
-" map toggle line number
-nmap <silent><C-n> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
-
-
 "----------------------------------------------------------------------
 " map for programming development shortcut
 nnoremap <silent>gh :A<CR>
