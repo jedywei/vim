@@ -21,7 +21,7 @@ snippet defjunity "Makefile for junity" b
 #  
 # @date   `date +%Y/%m/%d`         jedy.wei        New File 
 # DON'T CHANGE -------------------------------------------------------------------
-find_top=$(if $(wildcard \$1/scripts/auto_rules.mk),\$1,$(if $(filter-out /,\$1),$(call find_top,$(realpath \$1/..)),$(error "Error! Couldn't find auto_rules.mk")))
+find_top=$(if $(wildcard \$1/autorule/auto_rules.mk),\$1,$(if $(filter-out /,\$1),$(call find_top,$(realpath \$1/..)),$(error "Error! Couldn't find auto_rules.mk")))
 TOP:=$(strip $(call find_top,$(shell pwd)))
 SRC_TYPE   := PROPRIETARY
 # TILL HERE ----------------------------------------------------------------------
@@ -68,14 +68,14 @@ snippet defmake "Makefile" b
 #  
 # @date   `date +%Y/%m/%d`         jedy.wei        New File 
 # DON'T CHANGE -------------------------------------------------------------------
-find_top=$(if $(wildcard \$1/scripts/auto_rules.mk),\$1,$(if $(filter-out /,\$1),$(call find_top,$(realpath \$1/..)),$(error "Error! Couldn't find auto_rules.mk")))
+find_top=$(if $(wildcard \$1/autorule/auto_rules.mk),\$1,$(if $(filter-out /,\$1),$(call find_top,$(realpath \$1/..)),$(error "Error! Couldn't find auto_rules.mk")))
 TOP:=$(strip $(call find_top,$(shell pwd)))
 SRC_TYPE   := PROPRIETARY
 # TILL HERE ----------------------------------------------------------------------
 
 ############################### SCRIPTS SECTION ###################################
 include $(TOP)/Target.mk
-include $(TOP)/scripts/auto_rules.mk
+include $(TOP)/autorule/auto_rules.mk
 
 ######################## TARGET SECTION ######################## 
 #TARGET_SH_LIBS := ${2:# shared library name}
@@ -121,7 +121,7 @@ endsnippet
 
 # deftop
 snippet deftop
-find_top=$(if $(wildcard \$1/scripts/auto_rules.mk),\$1,$(if $(filter-out /,\$1),$(call find_top,$(realpath \$1/..)),$(error "Error! Couldn't find auto_rules.mk")))
+find_top=$(if $(wildcard \$1/autorule/auto_rules.mk),\$1,$(if $(filter-out /,\$1),$(call find_top,$(realpath \$1/..)),$(error "Error! Couldn't find auto_rules.mk")))
 TOP:=$(strip $(call find_top,$(shell pwd)))
 SRC_TYPE   := PROPRIETARY
 endsnippet
