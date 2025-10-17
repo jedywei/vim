@@ -34,7 +34,7 @@ SUT_TARGETS += ${1:# yourtarget}
 
 ############################### OBJECTS SECTION ###################################
 VPATH := ..
-JUCFLAGS += -Wall -g -std=gnu11 -I.. $(bass_INC)
+JUCFLAGS += -Wall -g -std=gnu11 -D__BASE_FNAME__=\"$(notdir $<)\" -I.. 
 
 
 $1_SUT_SOURCES = $1.c
@@ -86,24 +86,24 @@ TARGET_BINS		:= ${3:# target binary}
 ######################## OBJECTS SECTION ######################## 
 VPATH = 
 CFLAGS += -O3
-INCLUDES += -I. -I$(BAY_TOP) 
+INCLUDES += -D__BASE_FNAME__=\"$(notdir $<)\" -I. 
 
-$2_APIS				:= 
+$2_APIS			:= 
 $2_OBJECTS      	:=  
 $2_DEPLIBS      	:=  
 $2_SYSLIBS      	:= -lpthread -lrt
 $2_GENASM       	:= 1
 $2_GENPREPROC   	:= 1
 $2_VERSION      	:= 1
-$2_INSTALL			:= /usr/local/lib
-$2_APIMAP			:= 
+$2_INSTALL		:= /usr/local/lib
+$2_APIMAP		:= 
 
-$3_OBJECTS      := $3.o
-$3_DEPLIBS     	:= $(LIB_DIR) -l:libbay.a 
-$3_SYSLIBS     	:= -lpthread -lrt
-$3_GENASM      	:= 1
-$3_GENPREPROC  	:= 1
-$3_VERSION      := 1
+$3_OBJECTS		:= $3.o
+$3_DEPLIBS		:= $(LIB_DIR) -l:libbay.a 
+$3_SYSLIBS		:= -lpthread -lrt
+$3_GENASM		:= 1
+$3_GENPREPROC	        := 1
+$3_VERSION		:= 1
 $3_INSTALL		:= /usr/local/lib
 
 
