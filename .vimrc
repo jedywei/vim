@@ -513,11 +513,12 @@ autocmd InsertLeave * set nocursorline
 hi CursorLine gui=underline cterm=underline
 
 "Undo
-nnoremap U u
-nnoremap u <Nop> 
+nnoremap <silent>U u
+nnoremap <silent>uu u
 
 "save
 "nnoremap <silent> s :w<CR>
+nnoremap <silent>ss :w<CR>
 noremap  <C-s> :wa<CR>
 noremap! <C-s> <C-o>:wa<CR>
 noremap <silent><C-a> :wa<CR>:make<CR>
@@ -526,11 +527,11 @@ inoremap <silent><C-a> <Esc>:wa<CR>:make<CR>
 cnoreabbrev sudow w !sudo tee % > /dev/null
 
 " quit
-nnoremap <silent>zz :quit<CR>
+nnoremap <silent>qq :quit<CR>
 nnoremap <silent>X :bd<CR>
 
 " <C-V> to column mode selection
- 
+
 " paste
 " inoremap <C-v> <ESC>"0gP
 " nnoremap <C-v> "0gP
@@ -552,8 +553,8 @@ nnoremap <A-w> <C-w>w
 inoremap <A-w> <ESC><C-w>w
 nnoremap <C-x> <C-w>w
 augroup WindowToggle
-    autocmd!
-    autocmd CmdWinEnter * nnoremap <buffer><C-x> <C-c>
+autocmd!
+autocmd CmdWinEnter * nnoremap <buffer><C-x> <C-c>
 augroup End
 
 "delete

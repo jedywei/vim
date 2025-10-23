@@ -29,13 +29,17 @@ snippet defwjunity "/* junity template */" b
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+static mutex_t run_lock;
+
 namespace ut_${1/^ut-//m}
 {
     TEST_CLASS(win_${1/^ut-//m})
     {
     public:
-	TEST_CLASS_INITIALIZE(ut_setup) { }
-	TEST_CLASS_CLEANUP(ut_teardown) { }
+	TEST_CLASS_INITIALIZE(utc_setup) { mutex_init(&run_lock); }
+	TEST_CLASS_CLEANUP(utc_teardown) { }
+	TEST_METHOD_INITIALIZE(ut_setup) { mutex_locK(&run_lock); }
+	TEST_METHOD_CLEANUP(ut_teardown) { mutex_unlock(&run_lock);}
 	TEST_METHOD(ut_basic)
 	{
 	    int rc;
